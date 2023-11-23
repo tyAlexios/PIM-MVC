@@ -130,6 +130,9 @@ public class ModifyAPITest {
         assertEquals(0, modifyAPI.formatCheck(1, PIRTestName));
         assertEquals(0, modifyAPI.formatCheck(2, PIRTestAddress));
         assertEquals(0, modifyAPI.formatCheck(3, PIRTestMobileNumber));
+        assertEquals(-1, modifyAPI.formatCheck(3, "abc"));
+        assertEquals(-1, modifyAPI.formatCheck(3, "123abc"));
+
 
         createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
