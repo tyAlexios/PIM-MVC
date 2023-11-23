@@ -55,6 +55,15 @@ public class ModifyAPI implements API
                 }
             }
         }
+
+        if ( curPIR.getType().equals("contact") && targetIdx == 3)
+        {
+            if (inputStr.matches("\\d*"))
+                return 0;
+            return -1;
+        }
+
+
         return 0;
     }
 
