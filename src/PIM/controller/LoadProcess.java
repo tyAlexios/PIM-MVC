@@ -9,6 +9,6 @@ public class LoadProcess implements OperationProcess
 
     @Override
     public void process(String[] cmd) {
-        return;
+
     }
 }
