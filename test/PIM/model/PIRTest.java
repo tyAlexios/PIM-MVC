@@ -25,6 +25,10 @@ public class PIRTest {
     private final String PIRTestAddress = "Test Address";
     private final String PIRTestMobileNumber = "12345678";
     private final String PIRTestDeadline = "2023-11-23-11:00";
+    private final int[] txtEssentialIdx = new int[]{1};
+    private final int[] eventEssentialIdx = new int[]{1, 2};
+    private final int[] contactEssentialIdx = new int[]{1, 2, 3};
+    private final int[] taskEssentialIdx = new int[]{1};
 
     @Test
     public void buildKey() {
@@ -114,10 +118,6 @@ public class PIRTest {
 
     @Test
     public void getEssentialIdx() {
-        int[] txtEssentialIdx = new int[]{1};
-        int[] eventEssentialIdx = new int[]{1, 2};
-        int[] contactEssentialIdx = new int[]{1, 2, 3};
-        int[] taskEssentialIdx = new int[]{1};
         PIR txt = new TxtPIR();
         txt.initMetaData(TestPIRName);
         txt.setInfo(new String[]{PIRTextPrimaryKey, PIRTestDescription});
