@@ -111,10 +111,10 @@ public class ModifyAPITest {
         modifyAPI.init(new String[]{"modify", PIREventType, PIRNameForTesting});
         modifyAPI.exe(new String[]{PIREventPrimaryKey, PIRTestNewStartingTime, PIRTestNewAlarmTime, PIRTestNewDescription});
         assertEquals(0, modifyAPI.formatCheck(1, PIRTestStartingTime));
-        assertEquals(-1, modifyAPI.formatCheck(1, ""));
-        assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23"));
-        assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23-09"));
-        assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23-09:00:00"));
+        assertEquals(14, modifyAPI.formatCheck(1, ""));
+        assertEquals(14, modifyAPI.formatCheck(1, "2023-11-23"));
+        assertEquals(14, modifyAPI.formatCheck(1, "2023-11-23-09"));
+        assertEquals(14, modifyAPI.formatCheck(1, "2023-11-23-09:00:00"));
         assertEquals(0, modifyAPI.formatCheck(2, PIRTestAlarmTime));
         assertEquals(0, modifyAPI.formatCheck(3, PIRTestDescription));
 
@@ -125,18 +125,18 @@ public class ModifyAPITest {
         assertEquals(0, modifyAPI.formatCheck(1, PIRTestName));
         assertEquals(0, modifyAPI.formatCheck(2, PIRTestAddress));
         assertEquals(0, modifyAPI.formatCheck(3, PIRTestMobileNumber));
-        assertEquals(-1, modifyAPI.formatCheck(3, "abc"));
-        assertEquals(-1, modifyAPI.formatCheck(3, "123abc"));
+        assertEquals(15, modifyAPI.formatCheck(3, "abc"));
+        assertEquals(15, modifyAPI.formatCheck(3, "123abc"));
 
         createAPI.init(new String[]{"create", PIRTaskType, PIRNameForTesting});
         createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
         modifyAPI.init(new String[]{"modify", PIRTaskType, PIRNameForTesting});
         modifyAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestNewDeadline, PIRTestNewDescription});
         assertEquals(0, modifyAPI.formatCheck(1, PIRTestDeadline));
-        assertEquals(-1, modifyAPI.formatCheck(1, ""));
-        assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23"));
-        assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23-09"));
-        assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23-09:00:00"));
+        assertEquals(14, modifyAPI.formatCheck(1, ""));
+        assertEquals(14, modifyAPI.formatCheck(1, "2023-11-23"));
+        assertEquals(14, modifyAPI.formatCheck(1, "2023-11-23-09"));
+        assertEquals(14, modifyAPI.formatCheck(1, "2023-11-23-09:00:00"));
         assertEquals(0, modifyAPI.formatCheck(2, PIRTestDescription));
     }
 
