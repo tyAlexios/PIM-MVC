@@ -30,9 +30,8 @@ public class DeleteAPI implements API
     }
 
     @Override
-    public int exe(String[] PIRInfo)
+    public void exe(String[] PIRInfo)
     {
         PIRRepo.deletePIR(PIRInfo[0]);
-        return 0;
     }
 }

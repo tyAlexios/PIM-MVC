@@ -35,10 +35,9 @@ public class ModifyAPI implements API
     }
 
     @Override
-    public int exe(String[] newInfo)
+    public void exe(String[] newInfo)
     {
         curPIR.setInfo(newInfo);
-        return 0;
     }
 
     public int formatCheck(int targetIdx, String inputStr)

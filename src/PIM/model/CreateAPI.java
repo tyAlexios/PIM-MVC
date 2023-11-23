@@ -37,11 +37,10 @@ public class CreateAPI implements API
     }
 
     @Override
-    public int exe(String[] newInfo)
+    public void exe(String[] newInfo)
     {
         newPIR.setInfo(newInfo);
         PIRRepo.insertPIR(newInfo[0], newPIR);
-        return 0;
     }
 
     public int formatCheck(int targetIdx, String inputStr)

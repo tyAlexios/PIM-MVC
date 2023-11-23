@@ -39,11 +39,10 @@ public class PrintAPI implements API
     }
 
     @Override
-    public int exe(String[] PIRInfo)
+    public void exe(String[] PIRInfo)
     {
         String key = PIRInfo[0];
         String type = key.substring(1, key.indexOf(']'));
         PIM.output(VisualPIRView.getView(type, PIRInfo));
-        return 0;
     }
 }
