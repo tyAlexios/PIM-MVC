@@ -47,7 +47,6 @@ public class CreateAPI implements API
     {
         for (int idx : newPIR.TimeAttrIdx)
         {
-            System.out.println(idx);
             if (targetIdx == idx)
             {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
