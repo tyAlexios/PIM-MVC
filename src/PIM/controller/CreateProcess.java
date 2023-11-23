@@ -31,7 +31,7 @@ public class CreateProcess implements OperationProcess
         {
             PIM.output(SystemView.getView(SystemView.ViewPage.IdSelectionPrompt));
             String optionStr = PIM.input();
-            if (!inputVerify.optionVerify(optionStr, PIRInfo.length))
+            if (inputVerify.optionVerify(optionStr, PIRInfo.length))
             {
                 PIM.output(ErrorRepo.getError(2));
                 continue;
@@ -57,7 +57,7 @@ public class CreateProcess implements OperationProcess
 
                 PIM.output(SystemView.getView(SystemView.ViewPage.IdSelectionPrompt));
                 optionStr = PIM.input();
-                if (!inputVerify.optionVerify(optionStr, 1))
+                if (inputVerify.optionVerify(optionStr, 1))
                 {
                     PIM.output(ErrorRepo.getError(2));
                     continue;

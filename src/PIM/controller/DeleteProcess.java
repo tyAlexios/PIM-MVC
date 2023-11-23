@@ -31,7 +31,7 @@ public class DeleteProcess implements OperationProcess
         {
             PIM.output(SystemView.getView(SystemView.ViewPage.IdSelectionPrompt));
             optionStr = PIM.input();
-            if (!inputVerify.optionVerify(optionStr, 1))
+            if (inputVerify.optionVerify(optionStr, 1))
                 PIM.output(ErrorRepo.getError(2));
             else
                 break;
