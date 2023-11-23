@@ -44,6 +44,7 @@ public class ModifyAPI implements API
     {
         for (int idx : curPIR.TimeAttrIdx)
         {
+            System.out.println(idx);
             if (targetIdx == idx)
             {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
@@ -51,7 +52,7 @@ public class ModifyAPI implements API
                     LocalDateTime.parse(inputStr, formatter);
                     return 0;
                 } catch (DateTimeParseException e) {
-                    return -1;
+                    return 14;
                 }
             }
         }
@@ -60,9 +61,8 @@ public class ModifyAPI implements API
         {
             if (inputStr.matches("\\d*"))
                 return 0;
-            return -1;
+            return 15;
         }
-
 
         return 0;
     }

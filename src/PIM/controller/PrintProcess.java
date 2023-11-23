@@ -27,7 +27,10 @@ public class PrintProcess implements OperationProcess
         {
             List<String[]> RepoImg = PIRRepo.RepoImage();
             for (String[] PIRInfo : RepoImg)
+            {
                 printAPI.exe(PIRInfo);
+                PIM.output(printAPI.flushPrintCache());
+            }
             return;
         }
 

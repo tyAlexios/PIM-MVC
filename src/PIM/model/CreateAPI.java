@@ -47,6 +47,7 @@ public class CreateAPI implements API
     {
         for (int idx : newPIR.TimeAttrIdx)
         {
+            System.out.println(idx);
             if (targetIdx == idx)
             {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
@@ -54,7 +55,7 @@ public class CreateAPI implements API
                     LocalDateTime.parse(inputStr, formatter);
                     return 0;
                 } catch (DateTimeParseException e) {
-                    return -1;
+                    return 14;
                 }
             }
         }
@@ -63,7 +64,7 @@ public class CreateAPI implements API
         {
             if (inputStr.matches("\\d*"))
                 return 0;
-            return -1;
+            return 15;
         }
 
         return 0;
