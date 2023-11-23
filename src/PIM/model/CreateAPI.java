@@ -26,13 +26,20 @@ public class CreateAPI implements API
     {
         String type = para[1];
         String name = para[2];
-        newPIR= PIRTypeLib.createPIR(type);
+        newPIR = PIRTypeLib.createPIR(type);
         newPIR.initMetaData(name);
         return newPIR.getInfo();
     }
 
     @Override
     public int exe(String[] newInfo)
+    {
+        newPIR.setInfo(newInfo);
+        PIRRepo.insertPIR(newInfo[0], newPIR);
+        return 0;
+    }
+
+    public int finalCheck(String[] newInfo)
     {
         int[] essentialIdx = newPIR.getEssentialIdx();
         for (int idx : essentialIdx)
@@ -42,9 +49,8 @@ public class CreateAPI implements API
                 return -1;
             }
         }
-        newPIR.setInfo(newInfo);
-        PIRRepo.insertPIR(newInfo[0], newPIR);
         return 0;
     }
+
 
 }

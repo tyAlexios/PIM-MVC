@@ -21,13 +21,8 @@ public class ModifyProcess implements OperationProcess
         String op = cmd[0];
         String type = cmd[1];
 
-        API updateAPI;
-        if (op.equals("create"))
-            updateAPI = new CreateAPI();
-        else
-            updateAPI = new ModifyAPI();
-        String[] PIRInfo = updateAPI.init(cmd);
-
+        ModifyAPI modifyAPI = new ModifyAPI();
+        String[] PIRInfo = modifyAPI.init(cmd);
 
         PIM.output(UpdateView.getView(op, type));
 
@@ -52,6 +47,12 @@ public class ModifyProcess implements OperationProcess
 
             if (option == 0)
             {
+                if ( modifyAPI.finalCheck(PIRInfo) == -1)
+                {
+                    PIM.output( UpdateView.getView(UpdateView.ViewPage.FillEssential) );
+                    continue;
+                }
+
                 PIM.output(UpdateView.getView(UpdateView.ViewPage.ModifyConfirm, VisualPIRView.getView(type, PIRInfo)));
 
                 PIM.output(SystemView.getView(SystemView.ViewPage.IdSelectionPrompt));
@@ -64,21 +65,19 @@ public class ModifyProcess implements OperationProcess
 
                 int confirmOption = optionStr.charAt(0) - '0';
                 if (confirmOption == 0)
-                    continue;
-
-                if ( updateAPI.exe(PIRInfo) == -1)
                 {
-                    PIM.output( UpdateView.getView(UpdateView.ViewPage.FillEssential) );
+                    PIM.output(UpdateView.getView(op, type));
                     continue;
                 }
 
+                modifyAPI.exe(PIRInfo);
                 PIM.output(String.format(SystemView.getView(SystemView.ViewPage.Success), op));
                 return;
             }
 
             int attrIdx = option - 1;
             if (PIRInfo[attrIdx] != null)
-                PIM.output( UpdateView.getView(UpdateView.ViewPage.PreVersion) );
+                PIM.output( UpdateView.getView(UpdateView.ViewPage.PreVersion, PIRInfo[attrIdx]) );
 
             PIM.output(SystemView.getView(SystemView.ViewPage.InputPrompt));
             PIRInfo[attrIdx] = PIM.input();
