@@ -37,34 +37,39 @@ public class SearchAPI implements API
     @Override
     public void exe(String[] tokens)
     {
-        keySet = filter(keySet, tokens, 0, tokens.length-1 );
+        keySet = filter( tokens, 0, tokens.length-1 );
     }
 
-    private List<String>  filter(List<String> keySet, String[] tokens, int start, int end)
+    private List<String>  filter( String[] tokens, int start, int end)
     {
-//        for (int i = start; i <= end; i++)
-//        {
-//            String token = tokens[i];
-//            if (token.equals("("))
-//            {
-//                // Find the corresponding closing parenthesis and evaluate the sub-expression
-//                int j = findClosing(tokens, i);
-//                keySets.push(filter(keySet, tokens, i + 1, j - 1));
-//                i = j;
-//            } else if (isOperator(token)) {
-//                // Push operators to the ops stack
-//                ops.push(token);
-//            } else {
-//                // Evaluate time comparison and push result to the values stack
+        for (int i = start; i <= end; i++)
+        {
+            String token = tokens[i];
+            if (token.equals("("))
+            {
+                // Find the corresponding closing parenthesis and evaluate the sub-expression
+                int j = findClosing(tokens, i);
+                keySets.push(filter( tokens, i + 1, j - 1));
+                i = j;
+            } else if (isOperator(token)) {
+                // Push operators to the ops stack
+                ops.push(token);
+            } else {
+                // Evaluate time comparison and push result to the values stack
+                if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"')
+                {
+
+                }
+
 //                boolean result = evaluateTimeComparison(token);
 //                values.push(result);
-//            }
+            }
 //
 //            // Apply the operator at the top of the ops stack to the top two values in the values stack
 //            while (!ops.isEmpty() && !Objects.equals(ops.peek(), "(")) {
 //                values.push(applyOp(ops.pop(), values.pop(), values.pop()));
 //            }
-//        }
+        }
         return null;
     }
 

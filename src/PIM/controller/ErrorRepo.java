@@ -24,6 +24,7 @@ public class ErrorRepo {
         ErrorMap.put(13, "< There is no PIR created now. >\n");
 
         ErrorMap.put(14, "< Error: Wrong date format. >\n \tRight format: yyyy-MM-dd-HH:mm\n");
+        ErrorMap.put(15, "< Error: Wrong mobile number format. >\n \tMobile number can only contain digits\n");
 
     }
 

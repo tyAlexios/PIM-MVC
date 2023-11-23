@@ -70,7 +70,6 @@ public class CreateProcess implements OperationProcess
                     continue;
                 }
 
-
                 createAPI.exe(PIRInfo);
                 PIM.output(String.format(SystemView.getView(SystemView.ViewPage.Success), op));
                 return;
@@ -82,9 +81,10 @@ public class CreateProcess implements OperationProcess
 
             PIM.output(SystemView.getView(SystemView.ViewPage.InputPrompt));
             String inputStr = PIM.input();
-            if (createAPI.formatCheck(attrIdx, inputStr) == -1)
+            int errno = createAPI.formatCheck(attrIdx, inputStr);
+            if (errno != 0)
             {
-                PIM.output(ErrorRepo.getError(14));
+                PIM.output(ErrorRepo.getError(errno));
                 continue;
             }
 
