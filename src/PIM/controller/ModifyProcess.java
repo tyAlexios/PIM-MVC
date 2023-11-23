@@ -22,7 +22,7 @@ public class ModifyProcess implements OperationProcess
         String type = cmd[1];
 
         API updateAPI;
-        if (op.equals("new"))
+        if (op.equals("create"))
             updateAPI = new CreateAPI();
         else
             updateAPI = new ModifyAPI();
