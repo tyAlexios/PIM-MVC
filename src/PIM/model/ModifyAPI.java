@@ -1,5 +1,8 @@
 package PIM.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 public class ModifyAPI implements API
@@ -35,6 +38,24 @@ public class ModifyAPI implements API
     public int exe(String[] newInfo)
     {
         curPIR.setInfo(newInfo);
+        return 0;
+    }
+
+    public int formatCheck(int targetIdx, String inputStr)
+    {
+        for (int idx : curPIR.TimeAttrIdx)
+        {
+            if (targetIdx == idx)
+            {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
+                try {
+                    LocalDateTime.parse(inputStr, formatter);
+                    return 0;
+                } catch (DateTimeParseException e) {
+                    return -1;
+                }
+            }
+        }
         return 0;
     }
 

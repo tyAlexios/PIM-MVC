@@ -23,6 +23,8 @@ public class ErrorRepo {
         ErrorMap.put(12, "< Error: PIR already exists. >\n");
         ErrorMap.put(13, "< There is no PIR created now. >\n");
 
+        ErrorMap.put(14, "< Error: Wrong date format. >\n \tRight format: yyyy-MM-dd-HH:mm\n");
+
     }
 
     public static String getError(int errno) {

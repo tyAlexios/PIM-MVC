@@ -2,6 +2,11 @@ package PIM.model;
 
 import java.util.Objects;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+
 public class CreateAPI implements API
 {
     private PIR newPIR;
@@ -36,6 +41,25 @@ public class CreateAPI implements API
     {
         newPIR.setInfo(newInfo);
         PIRRepo.insertPIR(newInfo[0], newPIR);
+        return 0;
+    }
+
+    public int formatCheck(int targetIdx, String inputStr)
+    {
+
+        for (int idx : newPIR.TimeAttrIdx)
+        {
+            if (targetIdx == idx)
+            {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
+                try {
+                    LocalDateTime.parse(inputStr, formatter);
+                    return 0;
+                } catch (DateTimeParseException e) {
+                    return -1;
+                }
+            }
+        }
         return 0;
     }
 
