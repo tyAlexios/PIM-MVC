@@ -22,7 +22,6 @@ public class PrintProcess implements OperationProcess
     public void process(String[] cmd)
     {
         API printAPI = new PrintAPI();
-        printAPI.exe(cmd);
 
         if (cmd[1].equals("-a"))
         {

@@ -34,6 +34,12 @@ public class ModifyAPI implements API
     @Override
     public int exe(String[] newInfo)
     {
+        curPIR.setInfo(newInfo);
+        return 0;
+    }
+
+    public int finalCheck(String[] newInfo)
+    {
         int[] essentialIdx = curPIR.getEssentialIdx();
         for (int idx : essentialIdx)
         {
@@ -42,7 +48,6 @@ public class ModifyAPI implements API
                 return -1;
             }
         }
-        curPIR.setInfo(newInfo);
         return 0;
     }
 
