@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 public class DeleteAPITest {
     private final String TestPIRName = "test";
+    private final String TestPIRName2 = "test2";
     private final String PIRTextType = "txt";
     private final String PIREventType = "event";
     private final String PIRContactType = "contact";
@@ -22,19 +23,18 @@ public class DeleteAPITest {
     private final String PIRTestAddress = "Test Address";
     private final String PIRTestMobileNumber = "12345678";
     private final String PIRTestDeadline = "2023-11-23-11:00";
+    CreateAPI createAPI = new CreateAPI();
     @Test
     public void verify() {
-        CreateAPI createAPI = new CreateAPI();
         createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
         assertEquals(0, new DeleteAPI().verify(new String[]{"delete", PIRTextType, TestPIRName}));
         assertEquals(10, new DeleteAPI().verify(new String[]{"delete", UnknownPIRType, TestPIRName}));
-        assertEquals(11, new DeleteAPI().verify(new String[]{"delete", PIRTextType, TestPIRName}));
+        assertEquals(11, new DeleteAPI().verify(new String[]{"delete", PIRTextType, TestPIRName2}));
     }
 
     @Test
     public void init() {
-        CreateAPI createAPI = new CreateAPI();
         createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
         assertArrayEquals(new String[]{PIRTextPrimaryKey, PIRTestDescription}, new DeleteAPI().init(new String[]{"delete", PIRTextType, TestPIRName}));
@@ -54,9 +54,10 @@ public class DeleteAPITest {
 
     @Test
     public void exe() {
-        CreateAPI createAPI = new CreateAPI();
         createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
-        assertEquals(0, new DeleteAPI().exe(new String[]{PIRTextPrimaryKey, PIRTestDescription}));
+        assertEquals(0, new DeleteAPI().verify(new String[]{"delete", PIRTextType, TestPIRName}));
+        new DeleteAPI().exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
+        assertEquals(11, new DeleteAPI().verify(new String[]{"delete", PIRTextType, TestPIRName}));
     }
 }
