@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 public class SearchAPI implements API
 {
     private List<String> keySet;
+    Stack<List<String>> keySets = new Stack<>();
+    Stack<String> ops = new Stack<>();
 
     @Override
     public int verify(String[] cmd)
@@ -40,40 +42,40 @@ public class SearchAPI implements API
 
     private List<String>  filter(List<String> keySet, String[] tokens, int start, int end)
     {
-        for (int i = start; i <= end; i++)
-        {
-            String token = tokens[i];
-            if (token.equals("("))
-            {
-                // Find the corresponding closing parenthesis and evaluate the sub-expression
-                int j = findClosing(tokens, i);
-                List<String> keySet = filter(keySet, tokens, i + 1, j - 1);
-                values.push(val);
-                i = j;
-            } else if (isOperator(token)) {
-                // Push operators to the ops stack
-                ops.push(token);
-            } else {
-                // Evaluate time comparison and push result to the values stack
-                boolean result = evaluateTimeComparison(token);
-                values.push(result);
-            }
-
-            // Apply the operator at the top of the ops stack to the top two values in the values stack
-            while (!ops.isEmpty() && !Objects.equals(ops.peek(), "(")) {
-                values.push(applyOp(ops.pop(), values.pop(), values.pop()));
-            }
-        }
+//        for (int i = start; i <= end; i++)
+//        {
+//            String token = tokens[i];
+//            if (token.equals("("))
+//            {
+//                // Find the corresponding closing parenthesis and evaluate the sub-expression
+//                int j = findClosing(tokens, i);
+//                keySets.push(filter(keySet, tokens, i + 1, j - 1));
+//                i = j;
+//            } else if (isOperator(token)) {
+//                // Push operators to the ops stack
+//                ops.push(token);
+//            } else {
+//                // Evaluate time comparison and push result to the values stack
+//                boolean result = evaluateTimeComparison(token);
+//                values.push(result);
+//            }
+//
+//            // Apply the operator at the top of the ops stack to the top two values in the values stack
+//            while (!ops.isEmpty() && !Objects.equals(ops.peek(), "(")) {
+//                values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+//            }
+//        }
+        return null;
     }
 
     private List<String>  checkTime(List<String>  keySet, String op, String time)
     {
-
+        return null;
     }
 
     private List<String>  checkStr(List<String>  keySet, String targetStr)
     {
-
+        return null;
     }
 
     private int findClosing(String[] tokens, int openPos)
@@ -87,6 +89,29 @@ public class SearchAPI implements API
         }
         return closePos;
     }
+
+    private boolean applyOp(String op, boolean b, boolean a) {
+        return switch (op) {
+            case "&&" -> a && b; // Logical AND
+            case "||" -> a || b; // Logical OR
+            case "!" -> !b;     // Logical NOT
+            default -> false;
+        };
+    }
+
+    private boolean isOperator(String token) {
+        return token.equals("&&") || token.equals("||") || token.equals("!");
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     private static class ConditionEvaluator
