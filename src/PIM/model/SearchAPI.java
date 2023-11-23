@@ -33,8 +33,8 @@ public class SearchAPI implements API
         ConditionEvaluator evaluator = new ConditionEvaluator();
         //boolean result = evaluator.evaluateExpression("10:00 < 12:00 && (12:00 > 11:00 || !13:00 < 14:00)");
 
-        List<PIR> PIRSet = PIRRepo.RepoImage();
-        for (PIR curPIR: PIRSet)
+        List<String[]> PIRSet = PIRRepo.RepoImage();
+        for (String curPIR: PIRSet)
         {
 
         }
