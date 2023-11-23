@@ -100,10 +100,16 @@ public class ModifyAPITest {
 
     @Test
     public void formatCheck() {
+        createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
+        modifyAPI.init(new String[]{"modify", PIRTextType, PIRNameForTesting});
+        modifyAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestNewDescription});
+        assertEquals(0, modifyAPI.formatCheck(1, PIRTestDescription));
+
         createAPI.init(new String[]{"create", PIREventType, PIRNameForTesting});
         createAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
         modifyAPI.init(new String[]{"modify", PIREventType, PIRNameForTesting});
-        modifyAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestNewDescription});
+        modifyAPI.exe(new String[]{PIREventPrimaryKey, PIRTestNewStartingTime, PIRTestNewAlarmTime, PIRTestNewDescription});
         assertEquals(0, modifyAPI.formatCheck(1, PIRTestStartingTime));
         assertEquals(-1, modifyAPI.formatCheck(1, ""));
         assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23"));
@@ -115,7 +121,7 @@ public class ModifyAPITest {
         createAPI.init(new String[]{"create", PIRTaskType, PIRNameForTesting});
         createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
         modifyAPI.init(new String[]{"modify", PIRTaskType, PIRNameForTesting});
-        modifyAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDescription});
+        modifyAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestNewDeadline, PIRTestNewDescription});
         assertEquals(0, modifyAPI.formatCheck(1, PIRTestDeadline));
         assertEquals(-1, modifyAPI.formatCheck(1, ""));
         assertEquals(-1, modifyAPI.formatCheck(1, "2023-11-23"));
@@ -124,9 +130,9 @@ public class ModifyAPITest {
         assertEquals(0, modifyAPI.formatCheck(2, PIRTestDescription));
 
         createAPI.init(new String[]{"create", PIRContactType, PIRNameForTesting});
-        createAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestDeadline, PIRTestDescription});
+        createAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
         modifyAPI.init(new String[]{"modify", PIRContactType, PIRNameForTesting});
-        modifyAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestDeadline, PIRTestDescription});
+        modifyAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestNewName, PIRTestNewAddress, PIRTestNewMobileNumber});
         assertEquals(0, modifyAPI.formatCheck(1, PIRTestName));
         assertEquals(0, modifyAPI.formatCheck(2, PIRTestAddress));
         assertEquals(0, modifyAPI.formatCheck(3, PIRTestMobileNumber));
@@ -134,11 +140,7 @@ public class ModifyAPITest {
         assertEquals(-1, modifyAPI.formatCheck(3, "123abc"));
 
 
-        createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
-        createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
-        modifyAPI.init(new String[]{"modify", PIRTextType, PIRNameForTesting});
-        modifyAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
-        assertEquals(0, modifyAPI.formatCheck(1, PIRTestDescription));
+
 
     }
 
