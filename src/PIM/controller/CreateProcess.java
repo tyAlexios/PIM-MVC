@@ -88,7 +88,7 @@ public class CreateProcess implements OperationProcess
                 continue;
             }
 
-            PIRInfo[attrIdx] = PIM.input();
+            PIRInfo[attrIdx] = inputStr;
         }
     }
 }

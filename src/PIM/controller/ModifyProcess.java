@@ -86,7 +86,7 @@ public class ModifyProcess implements OperationProcess
                 continue;
             }
 
-            PIRInfo[attrIdx] = PIM.input();
+            PIRInfo[attrIdx] = inputStr;
         }
     }
 }

@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 public class SearchAPI implements API
 {
+    private List<String> keySet;
 
     @Override
     public int verify(String[] cmd)
@@ -25,28 +26,73 @@ public class SearchAPI implements API
     public String[] init(String[] para)
     {
         List<String[]> PIRInfos = PIRRepo.RepoImage();
-        String[] PIRKeys = new String[PIRInfos.size()];
-        for (int i=0; i<PIRInfos.size(); ++i)
-            PIRKeys[i] = PIRInfos.get(i)[0];
-        return PIRKeys;
+        List<String> keySet = new ArrayList<>();
+        for (String[] PIRInfo : PIRInfos)
+            keySet.add(PIRInfo[0]);
+        return null;
     }
 
     @Override
-    public void exe(String[] para)
+    public void exe(String[] tokens)
     {
-        String[] PIRKeys = init(null);
+        keySet = filter(keySet, tokens, 0, tokens.length-1 );
+    }
 
-        ConditionEvaluator evaluator = new ConditionEvaluator();
-        //boolean result = evaluator.evaluateExpression("10:00 < 12:00 && (12:00 > 11:00 || !13:00 < 14:00)");
+    private List<String>  filter(List<String> keySet, String[] tokens, int start, int end)
+    {
+        for (int i = start; i <= end; i++)
+        {
+            String token = tokens[i];
+            if (token.equals("("))
+            {
+                // Find the corresponding closing parenthesis and evaluate the sub-expression
+                int j = findClosing(tokens, i);
+                List<String> keySet = filter(keySet, tokens, i + 1, j - 1);
+                values.push(val);
+                i = j;
+            } else if (isOperator(token)) {
+                // Push operators to the ops stack
+                ops.push(token);
+            } else {
+                // Evaluate time comparison and push result to the values stack
+                boolean result = evaluateTimeComparison(token);
+                values.push(result);
+            }
 
+            // Apply the operator at the top of the ops stack to the top two values in the values stack
+            while (!ops.isEmpty() && !Objects.equals(ops.peek(), "(")) {
+                values.push(applyOp(ops.pop(), values.pop(), values.pop()));
+            }
+        }
+    }
 
+    private List<String>  checkTime(List<String>  keySet, String op, String time)
+    {
 
     }
+
+    private List<String>  checkStr(List<String>  keySet, String targetStr)
+    {
+
+    }
+
+    private int findClosing(String[] tokens, int openPos)
+    {
+        int closePos = openPos;
+        int counter = 1;
+        while (counter > 0) {
+            String token = tokens[++closePos];
+            if (token.equals("(")) counter++;
+            if (token.equals(")")) counter--;
+        }
+        return closePos;
+    }
+
 
     private static class ConditionEvaluator
     {
         private static final Pattern TOKEN_PATTERN = Pattern.compile(
-                "\"[^\"]*\"|\\d{4}-\\d{2}-\\d{2}-\\d{2}:\\d{2}|\\d{2}:\\d{2}|<=?|>=?|!=|=|\\|\\||&&|!|\\(|\\)"
+                "\\d{4}-\\d{2}-\\d{2}-\\d{2}:\\d{2}|\\d{2}:\\d{2}|<|>|=|\\|\\||&&|!|\\(|\\)"
         );
 
         // Method to evaluate the entire expression
@@ -153,7 +199,8 @@ public class SearchAPI implements API
         }
 
         // Helper method to parse the expression into tokens
-        public List<String> parseExpression(String expression) {
+        public List<String> parseExpression(String expression)
+        {
             List<String> tokens = new ArrayList<>();
             Matcher matcher = TOKEN_PATTERN.matcher(expression);
             while (matcher.find()) {
