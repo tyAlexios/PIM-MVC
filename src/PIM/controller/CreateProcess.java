@@ -81,6 +81,13 @@ public class CreateProcess implements OperationProcess
                 PIM.output( UpdateView.getView(UpdateView.ViewPage.PreVersion, PIRInfo[attrIdx]) );
 
             PIM.output(SystemView.getView(SystemView.ViewPage.InputPrompt));
+            String inputStr = PIM.input();
+            if (createAPI.formatCheck(attrIdx, inputStr) == -1)
+            {
+                PIM.output(ErrorRepo.getError(14));
+                continue;
+            }
+
             PIRInfo[attrIdx] = PIM.input();
         }
     }
