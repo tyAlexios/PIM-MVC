@@ -21,7 +21,7 @@ public class PrintProcess implements OperationProcess
     @Override
     public void process(String[] cmd)
     {
-        API printAPI = new PrintAPI();
+        PrintAPI printAPI = new PrintAPI();
 
         if (cmd[1].equals("-a"))
         {
@@ -33,5 +33,7 @@ public class PrintProcess implements OperationProcess
 
         String[] PIRInfo = printAPI.init(cmd);
         printAPI.exe(PIRInfo);
+
+        PIM.output(printAPI.flushPrintCache());
     }
 }

@@ -1,13 +1,12 @@
 package PIM.model;
 
-import PIM.controller.PIM;
 import PIM.view.VisualPIRView;
 
 import java.util.List;
 
 public class PrintAPI implements API
 {
-
+    private String printCache;
     @Override
     public int verify(String[] cmd)
     {
@@ -43,6 +42,12 @@ public class PrintAPI implements API
     {
         String key = PIRInfo[0];
         String type = key.substring(1, key.indexOf(']'));
-        PIM.output(VisualPIRView.getView(type, PIRInfo));
+        printCache = VisualPIRView.getView(type, PIRInfo);
     }
+
+    public String flushPrintCache()
+    {
+        return printCache;
+    }
+
 }

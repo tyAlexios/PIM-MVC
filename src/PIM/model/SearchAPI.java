@@ -24,20 +24,22 @@ public class SearchAPI implements API
     @Override
     public String[] init(String[] para)
     {
-        return new String[0];
+        List<String[]> PIRInfos = PIRRepo.RepoImage();
+        String[] PIRKeys = new String[PIRInfos.size()];
+        for (int i=0; i<PIRInfos.size(); ++i)
+            PIRKeys[i] = PIRInfos.get(i)[0];
+        return PIRKeys;
     }
 
     @Override
     public void exe(String[] para)
     {
+        String[] PIRKeys = init(null);
+
         ConditionEvaluator evaluator = new ConditionEvaluator();
         //boolean result = evaluator.evaluateExpression("10:00 < 12:00 && (12:00 > 11:00 || !13:00 < 14:00)");
 
-        List<String[]> PIRSet = PIRRepo.RepoImage();
-        for (String curPIR: PIRSet)
-        {
 
-        }
 
     }
 
