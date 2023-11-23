@@ -23,13 +23,13 @@ public class CreateAPITest {
     private final String PIRTestAddress = "Test Address";
     private final String PIRTestMobileNumber = "12345678";
     private final String PIRTestDeadline = "2023-11-23-11:00";
+    CreateAPI createAPI = new CreateAPI();
 
     @Test
     public void verify() {
-        assertEquals(0, new CreateAPI().verify(new String[]{"create", PIRTextType, TestPIRName2}));
-        CreateAPI createAPI = new CreateAPI();
         createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
         createAPI.exe(new String[]{PIRTextPrimaryKey, "Test."});
+        assertEquals(0, new CreateAPI().verify(new String[]{"create", PIRTextType, TestPIRName2}));
         assertEquals(10, new CreateAPI().verify(new String[]{"create", UnknownPIRType, TestPIRName}));
         assertEquals(12, new CreateAPI().verify(new String[]{"create", PIRTextType, TestPIRName}));
     }
@@ -44,16 +44,13 @@ public class CreateAPITest {
 
     @Test
     public void exe() {
-        CreateAPI createAPI = new CreateAPI();
         createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
-        assertEquals(0, createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription}));
         assertEquals(PIRTextPrimaryKey, PIRRepo.getPIR(PIRTextPrimaryKey).getInfo()[0]);
         assertEquals(PIRTestDescription, PIRRepo.getPIR(PIRTextPrimaryKey).getInfo()[1]);
 
         createAPI.init(new String[]{"create", PIREventType, TestPIRName});
         createAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
-        assertEquals(0, createAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription}));
         assertEquals(PIREventPrimaryKey, PIRRepo.getPIR(PIREventPrimaryKey).getInfo()[0]);
         assertEquals(PIRTestStartingTime, PIRRepo.getPIR(PIREventPrimaryKey).getInfo()[1]);
         assertEquals(PIRTestAlarmTime, PIRRepo.getPIR(PIREventPrimaryKey).getInfo()[2]);
@@ -61,7 +58,6 @@ public class CreateAPITest {
 
         createAPI.init(new String[]{"create", PIRContactType, TestPIRName});
         createAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
-        assertEquals(0, createAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber}));
         assertEquals(PIRContactPrimaryKey, PIRRepo.getPIR(PIRContactPrimaryKey).getInfo()[0]);
         assertEquals(PIRTestName, PIRRepo.getPIR(PIRContactPrimaryKey).getInfo()[1]);
         assertEquals(PIRTestAddress, PIRRepo.getPIR(PIRContactPrimaryKey).getInfo()[2]);
@@ -69,15 +65,45 @@ public class CreateAPITest {
 
         createAPI.init(new String[]{"create", PIRTaskType, TestPIRName});
         createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
-        assertEquals(0, createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription}));
         assertEquals(PIRTaskPrimaryKey, PIRRepo.getPIR(PIRTaskPrimaryKey).getInfo()[0]);
         assertEquals(PIRTestDeadline, PIRRepo.getPIR(PIRTaskPrimaryKey).getInfo()[1]);
         assertEquals(PIRTestDescription, PIRRepo.getPIR(PIRTaskPrimaryKey).getInfo()[2]);
     }
 
     @Test
+    public void formatCheck() {
+        createAPI.init(new String[]{"create", PIREventType, TestPIRName});
+        createAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
+        assertEquals(0, createAPI.formatCheck(1, PIRTestStartingTime));
+        assertEquals(-1, createAPI.formatCheck(1, ""));
+        assertEquals(-1, createAPI.formatCheck(1, "2023-11-23"));
+        assertEquals(-1, createAPI.formatCheck(1, "2023-11-23-09"));
+        assertEquals(-1, createAPI.formatCheck(1, "2023-11-23-09:00:00"));
+        assertEquals(0, createAPI.formatCheck(2, PIRTestAlarmTime));
+        assertEquals(0, createAPI.formatCheck(3, PIRTestDescription));
+
+        createAPI.init(new String[]{"create", PIRTaskType, TestPIRName});
+        createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
+        assertEquals(0, createAPI.formatCheck(1, PIRTestDeadline));
+        assertEquals(-1, createAPI.formatCheck(1, ""));
+        assertEquals(-1, createAPI.formatCheck(1, "2023-11-23"));
+        assertEquals(-1, createAPI.formatCheck(1, "2023-11-23-09"));
+        assertEquals(-1, createAPI.formatCheck(1, "2023-11-23-09:00:00"));
+        assertEquals(0, createAPI.formatCheck(2, PIRTestDescription));
+
+        createAPI.init(new String[]{"create", PIRContactType, TestPIRName});
+        createAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
+        assertEquals(0, createAPI.formatCheck(1, PIRTestName));
+        assertEquals(0, createAPI.formatCheck(2, PIRTestAddress));
+        assertEquals(0, createAPI.formatCheck(3, PIRTestMobileNumber));
+
+        createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
+        createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
+        assertEquals(0, createAPI.formatCheck(1, PIRTestDescription));
+    }
+
+    @Test
     public void finalCheck() {
-        CreateAPI createAPI = new CreateAPI();
         createAPI.init(new String[]{"create", PIRTextType, TestPIRName});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
         assertEquals(0, createAPI.finalCheck(new String[]{PIRTextPrimaryKey, PIRTestDescription}));
@@ -112,4 +138,6 @@ public class CreateAPITest {
         assertEquals(-1, createAPI.finalCheck(new String[]{PIRTaskPrimaryKey, "", PIRTestDescription}));
         assertEquals(0, createAPI.finalCheck(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, ""}));
     }
+
+
 }
