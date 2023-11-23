@@ -20,7 +20,7 @@ public class PIM
 
     private void systemStart()
     {
-        output(SystemView.getView(SystemView.ViewPage.Navigate));
+//        output(SystemView.getView(SystemView.ViewPage.Navigate));
         output(SystemView.getView(SystemView.ViewPage.WelcomePage));
         String cmdLine = null;
         while(true)
