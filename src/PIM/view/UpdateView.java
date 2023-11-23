@@ -63,7 +63,7 @@ public class UpdateView
             \t[1] Cancel             - Go back and do NOT save
             \t[2] *Names             - Add or edit names of contact persons
             \t[3] *Addresses         - Add or edit addresses of contact persons
-            \t[4] *Mobile Numbers    - Add or edit mobile numbers of contact persons
+            \t[4] *Mobile Numbers    - Add or edit mobile numbers of contact persons with digits only
             
             """
         )

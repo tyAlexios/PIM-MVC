@@ -45,7 +45,6 @@ public class CreateAPI implements API
 
     public int formatCheck(int targetIdx, String inputStr)
     {
-
         for (int idx : newPIR.TimeAttrIdx)
         {
             if (targetIdx == idx)
@@ -59,6 +58,14 @@ public class CreateAPI implements API
                 }
             }
         }
+
+        if ( newPIR.getType().equals("contact") && targetIdx == 3)
+        {
+            if (inputStr.matches("\\d*"))
+                return 0;
+            return -1;
+        }
+
         return 0;
     }
 
