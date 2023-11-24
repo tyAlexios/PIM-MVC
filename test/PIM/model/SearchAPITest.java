@@ -25,6 +25,7 @@ public class SearchAPITest {
     private final String PIRTestDeadline = "2023-11-23-11:00";
     CreateAPI createAPI = new CreateAPI();
     SearchAPI searchAPI = new SearchAPI();
+    DeleteAPI deleteAPI = new DeleteAPI();
 
     @Test
     public void verify() {
@@ -32,19 +33,35 @@ public class SearchAPITest {
 
     @Test
     public void init() {
-//        createAPI.init(new String[]{"new", PIRTextType, PIRNameForTesting});
-//        createAPI.exe(new String[]{PIRTextPrimaryKey,PIRTestDescription});
-//        searchAPI.init(new String[]{"search", '"' + PIRTestDescription + '"'});
-//        searchAPI.exe(new String[]{'"' + PIRTestDescription + '"'});
-//        assertEquals(1, searchAPI.getRestKeySet().size());
-//        assertEquals(PIRTextPrimaryKey, searchAPI.getRestKeySet().iterator().next());
+        createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIRTextPrimaryKey,PIRTestDescription});
+        searchAPI.init(new String[]{"search", '"' + PIRTestDescription + '"'});
+        searchAPI.exe(new String[]{'"' + PIRTestDescription + '"'});
+        assertEquals(1, searchAPI.getRestKeySet().size());
+        assertEquals(PIRTextPrimaryKey, searchAPI.getRestKeySet().iterator().next());
 
-
-
+        deleteAPI.init(new String[]{"del", PIRTextType, PIRNameForTesting});
+        deleteAPI.exe(new String[]{PIRTextPrimaryKey});
     }
 
     @Test
     public void exe() {
+        createAPI.init(new String[]{"new", PIRTextType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIRTextPrimaryKey,PIRTestDescription});
+        searchAPI.init(new String[]{"search", '"' + PIRTestDescription + '"'});
+        searchAPI.exe(new String[]{'"' + PIRTestDescription + '"'});
+        assertEquals(1, searchAPI.getRestKeySet().size());
+        assertEquals(PIRTextPrimaryKey, searchAPI.getRestKeySet().iterator().next());
+        searchAPI.exe(new String[]{"<2023-11-24-11:00"});
+        assertEquals(0, searchAPI.getRestKeySet().size());
+        try {
+            searchAPI.exe(new String[]{"<2023-11-24-11"});
+        } catch (Exception e) {
+            assertEquals("Invalid time format for targetTime", e.getMessage());
+        }
+        searchAPI.exe(new String[]{"<11:00"});
+        assertEquals(0, searchAPI.getRestKeySet().size());
+
     }
 
     @Test
