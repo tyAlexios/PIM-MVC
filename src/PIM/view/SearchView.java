@@ -5,7 +5,7 @@ public class SearchView
     public enum ViewPage
     {
         SearchNone("<No eligible PIR>\n"),
-        SearchTitle("[Search result]\n")
+        SearchTitle("\n[Search result]\n\n")
         ;
         private final String info;
         ViewPage(String info) {

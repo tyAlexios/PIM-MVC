@@ -65,9 +65,9 @@ public class SearchAPITest {
         searchAPI.exe(new String[]{">2023-11-24-11:00"});
         assertEquals(0, searchAPI.getRestKeySet().size());
 
-        searchAPI.init(new String[]{"search", "=2023-11-24-11:00"});
-        searchAPI.exe(new String[]{"=2023-11-24-11:00"});
-        assertEquals(0, searchAPI.getRestKeySet().size());
+        searchAPI.init(new String[]{"search", "=2023-11-23-10:00"});
+        searchAPI.exe(new String[]{"=2023-11-23-10:00"});
+        assertEquals(1, searchAPI.getRestKeySet().size());
 
         searchAPI.init(new String[]{"search", "<11:00"});
         searchAPI.exe(new String[]{"<11:00"});
@@ -93,9 +93,6 @@ public class SearchAPITest {
         searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
         assertEquals(2, searchAPI.getRestKeySet().size());
 
-
-
-
         deleteAPI.init(new String[]{"del", PIRTextType, PIRNameForTesting});
         deleteAPI.exe(new String[]{PIRTextPrimaryKey});
         deleteAPI.init(new String[]{"del", PIREventType, PIRNameForTesting});
@@ -103,6 +100,14 @@ public class SearchAPITest {
     }
 
     @Test
-    public void getRestKeySet() {
+    public void exe2() {
+        createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIRTextPrimaryKey,PIRTestDescription});
+        createAPI.init(new String[]{"create", PIRTaskType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, null});
+        searchAPI.init(new String[]{"search", "(","<11:00", "||", ">2022-12-12-12:12",")", "&&", "(", "\\\" s", "||", "!", "\"sss\"", ")"});
+        searchAPI.exe(new String[]{"(","<11:00", "||", ">2022-12-12-12:12",")", "&&", "(", "\\\\\" s", "||", "!", "\"sss\"", ")"});
+        assertEquals(1, searchAPI.getRestKeySet().size());
+
     }
 }
