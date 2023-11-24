@@ -4,16 +4,17 @@ public class LoadView
 {
     public enum ViewPage
     {
-        DeleteCancel("<Deletion Cancelled>\n"),
-        DeleteConfirm("""
-            
-            <DELETE Confirmation>
-            [PIR information]
-            %s
-            Do you want to delete this PIR FOREVER?
-            \t[0] No\t[1] Yes
-            
-            """
+        NotOverwrite("<Keep the current PIR>\n"),
+        YesOverwrite("<Overwrite the current PIR with the loaded one>\n"),
+        ConflictDecision("""
+                            
+                < Conflict PIR in current PIM >
+                %s
+                < Conflict PIR in loading PIM >
+                %s
+                Do you want to overwrite this PIR?
+                \t[0] No\t[1] Yes
+                """
         )
         ;
         private final String info;
@@ -31,8 +32,8 @@ public class LoadView
         return page.getInfo();
     }
 
-    public static String getView(ViewPage page, String para)
+    public static String getView(ViewPage page, String para1, String para2)
     {
-        return String.format( page.getInfo(), para );
+        return String.format( page.getInfo(), para1, para2 );
     }
 }

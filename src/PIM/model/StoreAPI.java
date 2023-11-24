@@ -2,9 +2,7 @@ package PIM.model;
 
 import PIM.view.VisualPIRView;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +11,7 @@ import java.util.List;
 
 public class StoreAPI implements API
 {
-    static final String SEPARATE = "\n\n\n";
+    static final String SEPARATE = "\n------------------------------------------------------------------------------\n";
     private Path savePath;
     @Override
     public int verify(String[] cmd)
@@ -47,7 +45,6 @@ public class StoreAPI implements API
             saveDir = System.getProperty("user.dir");
 
         savePath = Paths.get(saveDir, fileName);
-
         return new String[]{savePath.toString()};
     }
 
@@ -60,12 +57,16 @@ public class StoreAPI implements API
         for (String[] PIRInfo : RepoImg)
         {
             String key = PIRInfo[0];
-            String type = key.substring(1, key.indexOf(']'));
-            String PIRImg = VisualPIRView.getView(type, PIRInfo);
-            content.append(PIRImg).append(SEPARATE);
+            String PIRContent = String.join(",", PIRRepo.getPIR(key).getInfo());
+            content.append(PIRContent).append(SEPARATE);
         }
 
-        Files.writeString(savePath, content.toString());
+        File file = new File(savePath.toUri());
+        file.createNewFile();
+        file.setReadOnly();
+        FileWriter writer = new FileWriter(file, false);
+        writer.write(content.toString());
+        writer.close();
 
     }
 }
