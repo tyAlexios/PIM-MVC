@@ -66,6 +66,7 @@ public class SearchAPI implements API
         {
             if (ops.peek().equals("!"))
             {
+                ops.pop();
                 keySets.push(applyOp(keySets.pop()));
             }
             else
