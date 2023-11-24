@@ -72,31 +72,3 @@ public class PIM
     }
 
 }
-
-/**
- new txt-name
- new task-name
- new event-name
- new contact-name
-
- del type-name
-
- modify type-name
-
- search -s 'string'
- search -t >1130
- search -s 'string' && -t>1130
- search -s 'string' && (-t <1130 || -t >1300) || ((-t == 1000 && -s 'sdfad') || )
- -s 'string'
-
- function search(String[] cmd)
- find '(' ')' pairs
- search( in"()" )
-
-
-
- print type name
-
- load name.pim
- store name.pim
- */
