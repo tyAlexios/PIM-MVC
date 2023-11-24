@@ -24,6 +24,7 @@ public class DeleteAPITest {
     private final String PIRTestMobileNumber = "12345678";
     private final String PIRTestDeadline = "2023-11-23-11:00";
     CreateAPI createAPI = new CreateAPI();
+    DeleteAPI deleteAPI = new DeleteAPI();
     @Test
     public void verify() {
         createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
@@ -31,6 +32,9 @@ public class DeleteAPITest {
         assertEquals(0, new DeleteAPI().verify(new String[]{"delete", PIRTextType, PIRNameForTesting}));
         assertEquals(10, new DeleteAPI().verify(new String[]{"delete", UnknownPIRType, PIRNameForTesting}));
         assertEquals(11, new DeleteAPI().verify(new String[]{"delete", PIRTextType, PIRName2ForTesting}));
+
+        deleteAPI.init(new String[]{"delete", PIRTextType, PIRNameForTesting});
+        deleteAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
     }
 
     @Test
@@ -50,6 +54,15 @@ public class DeleteAPITest {
         createAPI.init(new String[]{"create", PIRTaskType, PIRNameForTesting});
         createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
         assertArrayEquals(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription}, new DeleteAPI().init(new String[]{"delete", PIRTaskType, PIRNameForTesting}));
+
+        deleteAPI.init(new String[]{"delete", PIRTextType, PIRNameForTesting});
+        deleteAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
+        deleteAPI.init(new String[]{"delete", PIREventType, PIRNameForTesting});
+        deleteAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
+        deleteAPI.init(new String[]{"delete", PIRContactType, PIRNameForTesting});
+        deleteAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
+        deleteAPI.init(new String[]{"delete", PIRTaskType, PIRNameForTesting});
+        deleteAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
     }
 
     @Test
@@ -57,7 +70,7 @@ public class DeleteAPITest {
         createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
         assertEquals(0, new DeleteAPI().verify(new String[]{"delete", PIRTextType, PIRNameForTesting}));
-        new DeleteAPI().exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
+        deleteAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
         assertEquals(11, new DeleteAPI().verify(new String[]{"delete", PIRTextType, PIRNameForTesting}));
     }
 }
