@@ -1,8 +1,5 @@
 package PIM.model;
 
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class SearchAPI implements API
@@ -62,58 +59,26 @@ public class SearchAPI implements API
                     keySets.push(checkTime(token.charAt(0), token.substring(1)));
             }
 
-            if (!ops.isEmpty())
-            {
+            if (ops.isEmpty() || keySets.isEmpty())
+                continue;
 
-            }
-            while (!ops.isEmpty())
+            if (ops.peek().equals("!") && !keySets.isEmpty())
             {
-                if (ops.peek().equals("!"))
-                {
-                    ops.pop();
-                    keySets.push(applyOp(keySets.pop()));
-                }
-                else
-                {
-                    keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
-                }
+                ops.pop();
+                keySets.push(applyOp(keySets.pop()));
             }
-
+            else if (keySets.size() >= 2)
+            {
+                keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
+            }
 
         }
-//        while (!ops.isEmpty())
-//        {
-//            if (ops.peek().equals("!"))
-//            {
-//                ops.pop();
-//                keySets.push(applyOp(keySets.pop()));
-//            }
-//            else
-//            {
-//                keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
-//            }
-//        }
         return keySets.pop();
     }
 
     private Set<String> checkTime(char op, String targetTime)
     {
         Set<String> matchingKeys = new HashSet<>();
-        DateTimeFormatter formatter;
-
-        LocalDateTime targetDateTime = null;
-        LocalTime targetLocalTime = null;
-
-        if (targetTime.length() > 5)
-        {
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
-            targetDateTime = LocalDateTime.parse(targetTime, formatter);
-        }
-        else
-        {
-            formatter = DateTimeFormatter.ofPattern("HH:mm");
-            targetLocalTime = LocalTime.parse(targetTime, formatter);
-        }
 
         for (String key : totalKeySet)
         {
@@ -123,19 +88,13 @@ public class SearchAPI implements API
 
             for (int idx : indices)
             {
-                String curTime = PIRInfo[idx];
-                boolean matches = false;
-
-                if (targetDateTime != null) {
-                    LocalDateTime curDateTime = LocalDateTime.parse(curTime, formatter);
-                    matches = compareDateTime(op, curDateTime, targetDateTime);
-                } else
+                String curTime;
+                if (targetTime.length() == 5)
+                    curTime = PIRInfo[idx].substring(11);
+                else
+                    curTime = PIRInfo[idx];
+                if (compareTime(op, curTime, targetTime))
                 {
-                    LocalTime curLocalTime = LocalTime.parse(curTime.substring(11), formatter);
-                    matches = compareLocalTime(op, curLocalTime, targetLocalTime);
-                }
-
-                if (matches) {
                     matchingKeys.add(key);
                     break;
                 }
@@ -145,22 +104,17 @@ public class SearchAPI implements API
         return matchingKeys;
     }
 
-    private boolean compareDateTime(char op, LocalDateTime curDateTime, LocalDateTime targetDateTime) {
-        return switch (op) {
-            case '=' -> curDateTime.equals(targetDateTime);
-            case '>' -> curDateTime.isAfter(targetDateTime);
-            case '<' -> curDateTime.isBefore(targetDateTime);
-            default -> throw new IllegalArgumentException("Invalid operator for time comparison");
-        };
-    }
-
-    private boolean compareLocalTime(char op, LocalTime curLocalTime, LocalTime targetLocalTime) {
-        return switch (op) {
-            case '=' -> curLocalTime.equals(targetLocalTime);
-            case '>' -> curLocalTime.isAfter(targetLocalTime);
-            case '<' -> curLocalTime.isBefore(targetLocalTime);
-            default -> throw new IllegalArgumentException("Invalid operator for time comparison");
-        };
+    private boolean compareTime(char op, String curTime, String targetTime)
+    {
+        boolean flag = false;
+        int ret = curTime.compareTo(targetTime);
+        if (op == '<' && ret < 0)
+            flag = true;
+        else if (op == '>' && ret > 0)
+            flag = true;
+        else if (op == '=')
+            flag = true;
+        return flag;
     }
 
     private Set<String> checkStr(String targetStr) {
