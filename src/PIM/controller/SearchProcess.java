@@ -35,14 +35,22 @@ public class SearchProcess implements OperationProcess
         else
             tokens = parseExpression(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
 
+        for (String token : tokens)
+            System.out.println(token);
+
         for (int i=0; i<tokens.length; ++i)
         {
             String token = tokens[i];
             char st = token.charAt(0);
             char end = token.charAt(token.length()-1);
 
-            if (token.length() == 1 && !token.equals("(") && !token.equals(")") && !token.equals("!"))
-                return 16;
+            if (token.length() == 1)
+            {
+                if( !token.equals("(") && !token.equals(")") && !token.equals("!"))
+                    return 16;
+                else
+                    continue;
+            }
 
             if (st == '\"' && end !='\"')
                 return 16;
@@ -51,7 +59,7 @@ public class SearchProcess implements OperationProcess
 
             if (st == '\"')
             {
-                if ( i == 0 && i == tokens.length-1)
+                if ( i == 0 && i == tokens.length-1 )
                     continue;
 
                 if (i == 0)
@@ -84,18 +92,48 @@ public class SearchProcess implements OperationProcess
             if (st == '=' || st == '>' || st == '<')
             {
                 String time = token.substring(1);
-                try {
-                    LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm"));
-                    LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
-                    continue;
-                } catch (DateTimeParseException e)
+                if (time.length() == 5)
                 {
-                    return 16;
+                    try {
+                        LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+                        continue;
+                    }
+                    catch (DateTimeParseException e)
+                    {
+                        return 16;
+                    }
+                }
+                else
+                {
+                    try {
+                        LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm"));
+                        continue;
+                    }
+                    catch (DateTimeParseException e)
+                    {
+                        return 16;
+                    }
                 }
             }
 
-            if (!token.equals("&&") && !token.equals("||"))
-                return 16;
+
+            if (token.equals("&&") || token.equals("||"))
+            {
+                if ( i == 0 || i == tokens.length-1 )
+                    return 16;
+                String preToken = tokens[i-1];
+                String nxtToken = tokens[i+1];
+
+                if (    (preToken.charAt(0) != '\"' && preToken.charAt(preToken.length()-1) != '\"')
+                        && (preToken.charAt(0) != '>' && preToken.charAt(0) != '=' && preToken.charAt(0) != '<')
+                        && (nxtToken.charAt(0) != '\"' && nxtToken.charAt(nxtToken.length()-1) != '\"')
+                        && (nxtToken.charAt(0) != '>' && nxtToken.charAt(0) != '=' && nxtToken.charAt(0) != '<') )
+                    return 16;
+
+                continue;
+            }
+
+            return 16;
         }
         return 0;
     }

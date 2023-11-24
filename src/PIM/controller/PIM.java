@@ -62,46 +62,4 @@ public class PIM {
 
 }
 
-
-//
-//
-//
-//
-//
-//    public static void main(String[] args)
-//    {
-//        Scanner scanner = new Scanner(System.in);
-//        String input = scanner.nextLine();
-//
-//        try
-//        {
-//            String[] tokens = parseExpression(input);
-//            for (String token : tokens)
-//                System.out.println(token);
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println("wrong");
-//        }
-//
-//    }
-//    private static String[] parseExpression(String expression)
-//    {
-//        List<String> components = new ArrayList<>();
-//        Pattern pattern = Pattern.compile("\"([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\"|\\S+");
-//        Matcher matcher = pattern.matcher(expression);
-//
-//        while (matcher.find()) {
-//            if (matcher.group(1) != null)
-//            {
-//                components.add("\""+matcher.group(1).replaceAll("\\\\\"", "\"")+"\"");
-//            }
-//            else
-//                components.add(matcher.group(0));
-//        }
-//        return components.toArray(new String[0]);
-//    }
-//
-//}
-
 // search ( >11:00 || <2022-12-12-12:12 ) && ( "\" s" || ! "sss" )
