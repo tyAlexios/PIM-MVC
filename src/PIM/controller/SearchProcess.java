@@ -4,9 +4,9 @@ import PIM.model.SearchAPI;
 import PIM.view.SearchView;
 import PIM.view.SearchView.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SearchProcess implements OperationProcess
 {
@@ -16,7 +16,7 @@ public class SearchProcess implements OperationProcess
         // all split with only one white space
         // no priority between && and ! and ||
 
-
+        
 
         return 0;
     }
@@ -24,9 +24,7 @@ public class SearchProcess implements OperationProcess
     @Override
     public void process(String[] cmd)
     {
-        String expression = String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length));
-
-        String[] tokens = Arrays.copyOfRange(cmd, 1, cmd.length);
+        String[] tokens = parseExpression(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
 
         SearchAPI searchAPI = new SearchAPI();
         searchAPI.init(null);
@@ -46,8 +44,20 @@ public class SearchProcess implements OperationProcess
 
     private String[] parseExpression(String expression)
     {
+        List<String> components = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\"([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\"|\\S+");
+        Matcher matcher = pattern.matcher(expression);
 
-        return null;
+        while (matcher.find()) {
+            if (matcher.group(1) != null)
+            {
+                components.add("\""+matcher.group(1).replaceAll("\\\\\"", "\"")+"\"");
+            }
+            else
+                components.add(matcher.group(0));
+        }
+
+        return components.toArray(new String[0]);
     }
 
 }

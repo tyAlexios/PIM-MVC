@@ -8,7 +8,8 @@ public class StoreProcess implements OperationProcess
     }
 
     @Override
-    public void process(String[] cmd) {
+    public void process(String[] cmd)
+    {
 
     }
 }
