@@ -35,8 +35,6 @@ public class SearchProcess implements OperationProcess
         else
             tokens = parseExpression(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
 
-        for (String token : tokens)
-            System.out.println(token);
 
         for (int i=0; i<tokens.length; ++i)
         {
@@ -124,8 +122,11 @@ public class SearchProcess implements OperationProcess
                 String preToken = tokens[i-1];
                 String nxtToken = tokens[i+1];
 
-                if (    (preToken.charAt(0) != '\"' && preToken.charAt(preToken.length()-1) != '\"')
+                if (    !preToken.equals(")") && !nxtToken.equals("(")
+
+                        && (preToken.charAt(0) != '\"' && preToken.charAt(preToken.length()-1) != '\"')
                         && (preToken.charAt(0) != '>' && preToken.charAt(0) != '=' && preToken.charAt(0) != '<')
+
                         && (nxtToken.charAt(0) != '\"' && nxtToken.charAt(nxtToken.length()-1) != '\"')
                         && (nxtToken.charAt(0) != '>' && nxtToken.charAt(0) != '=' && nxtToken.charAt(0) != '<') )
                     return 16;
