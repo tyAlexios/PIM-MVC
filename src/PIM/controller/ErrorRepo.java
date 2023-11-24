@@ -27,6 +27,17 @@ public class ErrorRepo {
 
         ErrorMap.put(16, "< Error: Wrong search format. >\n \tPlease check user manual for more details\n");
         ErrorMap.put(17, "< Error: Wrong search format. >\n \tPIR type does NOT exist\n");
+
+        ErrorMap.put(18, "< Error: Wrong format. >\n \tRight format: \"store {PIMname.pim}\" or \"store {PIMname.pim} {saveDir}\"\n");
+        ErrorMap.put(19, "< Error: File must have a \".pim\" suffix.\n");
+        ErrorMap.put(20, "< Error: The directory does not exist or it is not a directory.\n");
+        ErrorMap.put(21, "< Error: The file already exists.\n");
+
+        ErrorMap.put(22, "< Error: Wrong format. >\n \tRight format: \"load {path/to/fileName.pim}\"\n");
+        ErrorMap.put(23, "< Error: The file does not exists.\n");
+        ErrorMap.put(24, "< Nothing to load: The file is empty.\n");
+
+
     }
 
     public static String getError(int errno) {
