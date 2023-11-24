@@ -1,34 +1,29 @@
 package PIM.controller;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import PIM.view.*;
 
-public class PIM
-{
+public class PIM {
     public static Stream stream;
 
-    public static String input()
-    {
+    public static String input() {
         return stream.in();
     }
 
-    public static void output(String outStr)
-    {
+    public static void output(String outStr) {
         stream.out(outStr);
     }
 
-    private void systemStart()
-    {
+    private void systemStart() {
         output(SystemView.getView(SystemView.ViewPage.WelcomePage));
         String cmdLine = null;
-        while(true)
-        {
+        while (true) {
             output(SystemView.getView(SystemView.ViewPage.Navigate));
             cmdLine = input();
-            if(Objects.equals(cmdLine, "quit"))
-            {
+            if (Objects.equals(cmdLine, "quit")) {
                 output(SystemView.getView(SystemView.ViewPage.ByePage));
                 return;
             }
@@ -38,22 +33,17 @@ public class PIM
         }
     }
 
-    public int runCmd(String cmdLine)
-    {
+    public int runCmd(String cmdLine) {
         String[] cmd = cmdLine.split(" ");
         String op = cmd[0];
-        if (!OperationLib.containOperation(op))
-        {
+        if (!OperationLib.containOperation(op)) {
             return 1;
-        }
-        else
-        {
+        } else {
             OperationProcess proc = OperationLib.getOperation(op);
             int errno = proc.verify(cmd);
             if (errno != 0)
                 return errno;
-            else
-            {
+            else {
                 proc.process(cmd);
                 return 0;
             }
@@ -61,8 +51,7 @@ public class PIM
     }
 
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         stream = new ScannerStream();
 
         PIM pim = new PIM();
@@ -72,5 +61,47 @@ public class PIM
     }
 
 }
+
+
+//
+//
+//
+//
+//
+//    public static void main(String[] args)
+//    {
+//        Scanner scanner = new Scanner(System.in);
+//        String input = scanner.nextLine();
+//
+//        try
+//        {
+//            String[] tokens = parseExpression(input);
+//            for (String token : tokens)
+//                System.out.println(token);
+//        }
+//        catch (Exception e)
+//        {
+//            System.out.println("wrong");
+//        }
+//
+//    }
+//    private static String[] parseExpression(String expression)
+//    {
+//        List<String> components = new ArrayList<>();
+//        Pattern pattern = Pattern.compile("\"([^\"\\\\]*(\\\\.[^\"\\\\]*)*)\"|\\S+");
+//        Matcher matcher = pattern.matcher(expression);
+//
+//        while (matcher.find()) {
+//            if (matcher.group(1) != null)
+//            {
+//                components.add("\""+matcher.group(1).replaceAll("\\\\\"", "\"")+"\"");
+//            }
+//            else
+//                components.add(matcher.group(0));
+//        }
+//        return components.toArray(new String[0]);
+//    }
+//
+//}
 
 // search ( >11:00 || <2022-12-12-12:12 ) && ( "\" s" || ! "sss" )

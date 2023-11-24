@@ -17,7 +17,6 @@ public class ErrorRepo {
         ErrorMap.put(8, "< Error: Wrong format. >\n \tRight format: \"load\"\n");
         ErrorMap.put(9, "< Error: Wrong format. >\n \tRight format: \"store\"\n");
 
-
         ErrorMap.put(10, "< Error: PIR type does NOT exist. >\n");
         ErrorMap.put(11, "< Error: PIR does NOT exist. >\n");
         ErrorMap.put(12, "< Error: PIR already exists. >\n");
@@ -26,6 +25,8 @@ public class ErrorRepo {
         ErrorMap.put(14, "< Error: Wrong date format. >\n \tRight format: yyyy-MM-dd-HH:mm\n");
         ErrorMap.put(15, "< Error: Wrong mobile number format. >\n \tMobile number can only contain digits\n");
 
+        ErrorMap.put(16, "< Error: Wrong search format. >\n \tPlease check user manual for more details\n");
+        ErrorMap.put(17, "< Error: Wrong search format. >\n \tPIR type does NOT exist\n");
     }
 
     public static String getError(int errno) {

@@ -8,8 +8,11 @@ public class SearchAPI implements API
     private Set<String> restKeySet;
 
     @Override
-    public int verify(String[] cmd)
+    public int verify(String[] para)
     {
+        String type = para[0];
+        if (!PIRTypeLib.containPIRType(type))
+            return 17;
         return 0;
     }
 
