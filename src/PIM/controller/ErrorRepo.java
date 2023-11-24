@@ -9,7 +9,7 @@ public class ErrorRepo {
         ErrorMap.put(1, "< Error: Command does NOT exist. >\n");
         ErrorMap.put(2, "< Error: Invalid Input option. >\n Please input the number corresponding to the desired option from above.\n");
 
-        ErrorMap.put(3, "< Error: Wrong format. >\n \tRight format: \"new {PIRtype} {PIRname}\"\n");
+        ErrorMap.put(3, "< Error: Wrong format. >\n \tRight format: \"create {PIRtype} {PIRname}\"\n");
         ErrorMap.put(4, "< Error: Wrong format. >\n \tRight format: \"modify {PIRtype} {PIRname}\"\n");
         ErrorMap.put(5, "< Error: Wrong format. >\n \tRight format: \"print {PIRtype} {PIRname}\" or \"print -a\" to print all\n");
         ErrorMap.put(6, "< Error: Wrong format. >\n \tRight format: \"del {PIRtype} {PIRname}\"\n");
