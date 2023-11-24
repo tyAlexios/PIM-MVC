@@ -17,16 +17,29 @@ public class SearchProcess implements OperationProcess
         // no priority between && and ! and ||
 
 
+
         return 0;
     }
 
     @Override
     public void process(String[] cmd)
     {
-        String[] tokens = parseExpression(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
-
+        String[] tokens;
         SearchAPI searchAPI = new SearchAPI();
-        searchAPI.init(null);
+
+        if (cmd[1].charAt(0) == '-')
+        {
+            String type = cmd[1].substring(1);
+            String[] para = new String[1];
+            para[0] = type;
+            searchAPI.init(para);
+            tokens = parseExpression(String.join(" ", Arrays.copyOfRange(cmd, 2, cmd.length)));
+        }
+        else
+        {
+            searchAPI.init(null);
+            tokens = parseExpression(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
+        }
 
         searchAPI.exe(tokens);
 
@@ -55,7 +68,6 @@ public class SearchProcess implements OperationProcess
             else
                 components.add(matcher.group(0));
         }
-
         return components.toArray(new String[0]);
     }
 

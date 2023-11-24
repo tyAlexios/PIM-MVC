@@ -7,7 +7,6 @@ public class SearchAPI implements API
     private Set<String> totalKeySet;
     private Set<String> restKeySet;
 
-
     @Override
     public int verify(String[] cmd)
     {
@@ -20,16 +19,31 @@ public class SearchAPI implements API
         List<String[]> PIRInfos = PIRRepo.RepoImage();
         totalKeySet = new HashSet<>();
         restKeySet = new HashSet<>();
-        for (String[] PIRInfo : PIRInfos)
-            totalKeySet.add(PIRInfo[0]);
-
+        if (para != null)
+        {
+            String type = para[0];
+            for (String[] PIRInfo : PIRInfos)
+            {
+                String key = PIRInfo[0];
+                if (PIRRepo.getPIR(key).getType().equals(type))
+                    totalKeySet.add(key);
+            }
+        }
+        else
+        {
+            for (String[] PIRInfo : PIRInfos)
+                totalKeySet.add(PIRInfo[0]);
+        }
         return null;
     }
 
     @Override
     public void exe(String[] tokens)
     {
-        restKeySet = filter( tokens, 0, tokens.length-1 );
+        if (tokens.length == 0)
+            restKeySet = totalKeySet;
+        else
+            restKeySet = filter( tokens, 0, tokens.length-1 );
     }
 
     public Set<String> getRestKeySet()
