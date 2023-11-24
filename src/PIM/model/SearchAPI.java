@@ -54,22 +54,23 @@ public class SearchAPI implements API
                 i = j;
             } else if (isOperator(token)) {
                 ops.push(token);
-            } else {
+            } else
+            {
                 if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"')
                     keySets.push(checkStr(token.substring(1, token.length()-1)));
                 else
                     keySets.push(checkTime(token.charAt(0), token.substring(1)));
             }
-            while (!ops.isEmpty() && !Objects.equals(ops.peek(), "("))
+        }
+        while (!ops.isEmpty())
+        {
+            if (ops.peek().equals("!"))
             {
-                if (ops.peek().equals("!"))
-                {
-                    keySets.push(applyOp(ops.pop(), keySets.pop()));
-                }
-                else
-                {
-                    keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
-                }
+                keySets.push(applyOp(keySets.pop()));
+            }
+            else
+            {
+                keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
             }
         }
         return keySets.pop();
@@ -98,11 +99,13 @@ public class SearchAPI implements API
             throw new IllegalArgumentException("Invalid time format for targetTime", e);
         }
 
-        for (String key : totalKeySet) {
+        for (String key : totalKeySet)
+        {
             PIR curPIR = PIRRepo.getPIR(key);
             String[] PIRInfo = curPIR.getInfo();
+            int[] indices = curPIR.getTimeAttrIdx();
 
-            for (int idx : curPIR.getTimeAttrIdx())
+            for (int idx : indices)
             {
                 String curTime = PIRInfo[idx];
                 boolean matches = false;
@@ -149,7 +152,9 @@ public class SearchAPI implements API
         for (String key : totalKeySet) {
             PIR curPIR = PIRRepo.getPIR(key);
             String[] PIRInfo = curPIR.getInfo();
-            for (int idx : curPIR.getStrAttrIdx())
+            int[] indices = curPIR.getStrAttrIdx();
+
+            for (int idx : indices)
             {
                 String curStr = PIRInfo[idx];
                 if (curStr != null && curStr.contains(targetStr)) {
@@ -178,18 +183,18 @@ public class SearchAPI implements API
         switch (op)
         {
             case "&&" -> {
-                set1.retainAll(set2); // Intersection for logical AND
+                set1.retainAll(set2);
                 return set1;
             }
             case "||" -> {
-                set1.addAll(set2); // Union for logical OR
+                set1.addAll(set2);
                 return set1;
             }
             default -> throw new IllegalArgumentException("Unknown operator: " + op);
         }
     }
 
-    private Set<String> applyOp(String op, Set<String> set)
+    private Set<String> applyOp( Set<String> set)
     {
         Set<String> complement = new HashSet<>(totalKeySet);
         complement.removeAll(set);
