@@ -41,7 +41,7 @@ public class VisualPIRView
             
             <Data of %s>
             [Names]
-                 %s
+                %s
             [Addresses]
                 %s
             [Mobile Numbers]
