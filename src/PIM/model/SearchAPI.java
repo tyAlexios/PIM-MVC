@@ -117,11 +117,11 @@ public class SearchAPI implements API
     {
         boolean flag = false;
         int ret = curTime.compareTo(targetTime);
-        if (op == '<' && ret < 0)
+        if (ret < 0 && op == '<')
             flag = true;
-        else if (op == '>' && ret > 0)
+        if (ret > 0 && op == '>')
             flag = true;
-        else if (op == '=')
+        if (ret == 0 && op == '=')
             flag = true;
         return flag;
     }
