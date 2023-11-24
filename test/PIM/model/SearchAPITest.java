@@ -81,17 +81,17 @@ public class SearchAPITest {
         searchAPI.exe(new String[]{"=11:00"});
         assertEquals(0, searchAPI.getRestKeySet().size());
 
-//        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"'});
-//        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"'});
-//        assertEquals(1, searchAPI.getRestKeySet().size());
-//
-//        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "&&", "<2023-11-24-11:00"});
-//        searchAPI.exe(new String[]{'"' + PIRTaskType + '"', "&&", "<2023-11-24-11:00"});
-//        assertEquals(0, searchAPI.getRestKeySet().size());
-//
-//        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
-//        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
-//        assertEquals(0, searchAPI.getRestKeySet().size());
+        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"'});
+        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"'});
+        assertEquals(2, searchAPI.getRestKeySet().size());
+
+        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "&&", "<2023-11-24-11:00"});
+        searchAPI.exe(new String[]{'"' + PIRTaskType + '"', "&&", "<2023-11-24-11:00"});
+        assertEquals(0, searchAPI.getRestKeySet().size());
+
+        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
+        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
+        assertEquals(2, searchAPI.getRestKeySet().size());
 
 
 
