@@ -43,19 +43,19 @@ public abstract class PIR
 
     public int[] getEssentialIdx()
     {
-        int[] copy = new int[this.numOfAttribute];
+        int[] copy = new int[this.EssentialIdx.length];
         System.arraycopy(this.EssentialIdx, 0, copy, 0, this.EssentialIdx.length);
         return copy;
     }
 
     public int[] getTimeAttrIdx() {
-        int[] copy = new int[this.numOfAttribute];
+        int[] copy = new int[this.TimeAttrIdx.length];
         System.arraycopy(this.TimeAttrIdx, 0, copy, 0, this.TimeAttrIdx.length);
         return copy;
     }
 
     public int[] getStrAttrIdx() {
-        int[] copy = new int[this.numOfAttribute];
+        int[] copy = new int[this.StrAttrIdx.length];
         System.arraycopy(this.StrAttrIdx, 0, copy, 0, this.StrAttrIdx.length);
         return copy;
     }
