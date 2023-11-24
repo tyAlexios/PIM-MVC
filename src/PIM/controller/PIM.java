@@ -1,6 +1,8 @@
 package PIM.controller;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import PIM.view.*;
 
@@ -20,7 +22,6 @@ public class PIM
 
     private void systemStart()
     {
-//        output(SystemView.getView(SystemView.ViewPage.Navigate));
         output(SystemView.getView(SystemView.ViewPage.WelcomePage));
         String cmdLine = null;
         while(true)

@@ -24,14 +24,45 @@ public abstract class PIR
         this.info[0] = this.primaryKey;
     }
 
-    public abstract int getNumOfAttr();
+    public int getNumOfAttr()
+    {
+        return this.numOfAttribute;
+    }
 
-    public abstract String getType();
+    public String getType() {
+        return this.type;
+    }
 
-    public abstract String[] getInfo();
+    public String[] getInfo()
+    {
+        String[] tmpInfo = new String[this.numOfAttribute];
+        System.arraycopy(this.info, 0, tmpInfo, 0, this.numOfAttribute);
+        return tmpInfo;
+    }
 
-    public abstract int[] getEssentialIdx();
 
-    public abstract void setInfo(String[] newInfo);
+    public int[] getEssentialIdx()
+    {
+        int[] copy = new int[this.numOfAttribute];
+        System.arraycopy(this.EssentialIdx, 0, copy, 0, this.EssentialIdx.length);
+        return copy;
+    }
+
+    public int[] getTimeAttrIdx() {
+        int[] copy = new int[this.numOfAttribute];
+        System.arraycopy(this.TimeAttrIdx, 0, copy, 0, this.TimeAttrIdx.length);
+        return copy;
+    }
+
+    public int[] getStrAttrIdx() {
+        int[] copy = new int[this.numOfAttribute];
+        System.arraycopy(this.StrAttrIdx, 0, copy, 0, this.StrAttrIdx.length);
+        return copy;
+    }
+
+    public void setInfo(String[] newInfo)
+    {
+        System.arraycopy(newInfo, 0, this.info, 0, newInfo.length);
+    }
 
 }

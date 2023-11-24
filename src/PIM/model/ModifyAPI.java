@@ -44,7 +44,6 @@ public class ModifyAPI implements API
     {
         for (int idx : curPIR.TimeAttrIdx)
         {
-            System.out.println(idx);
             if (targetIdx == idx)
             {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
