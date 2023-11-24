@@ -188,4 +188,50 @@ public class PIRTest {
         PIR task = new TaskPIR();
         assertEquals(PIRTaskType, task.getType());
     }
+
+    @Test
+    public void getTimeAttrIdx() {
+        PIR txt = new TxtPIR();
+        txt.initMetaData(PIRNameForTesting);
+        txt.setInfo(new String[]{PIRTextPrimaryKey, PIRTestDescription});
+        assertArrayEquals(new int[]{}, txt.getTimeAttrIdx());
+
+        PIR event = new EventPIR();
+        event.initMetaData(PIRNameForTesting);
+        event.setInfo(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
+        assertArrayEquals(new int[]{1, 2}, event.getTimeAttrIdx());
+
+        PIR contact = new ContactPIR();
+        contact.initMetaData(PIRNameForTesting);
+        contact.setInfo(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
+        assertArrayEquals(new int[]{}, contact.getTimeAttrIdx());
+
+        PIR task = new TaskPIR();
+        task.initMetaData(PIRNameForTesting);
+        task.setInfo(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
+        assertArrayEquals(new int[]{1}, task.getTimeAttrIdx());
+    }
+
+    @Test
+    public void getStrAttrIdx() {
+        PIR txt = new TxtPIR();
+        txt.initMetaData(PIRNameForTesting);
+        txt.setInfo(new String[]{PIRTextPrimaryKey, PIRTestDescription});
+        assertArrayEquals(new int[]{0,1}, txt.getStrAttrIdx());
+
+        PIR event = new EventPIR();
+        event.initMetaData(PIRNameForTesting);
+        event.setInfo(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
+        assertArrayEquals(new int[]{0,3}, event.getStrAttrIdx());
+
+        PIR contact = new ContactPIR();
+        contact.initMetaData(PIRNameForTesting);
+        contact.setInfo(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
+        assertArrayEquals(new int[]{0, 1, 2, 3}, contact.getStrAttrIdx());
+
+        PIR task = new TaskPIR();
+        task.initMetaData(PIRNameForTesting);
+        task.setInfo(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
+        assertArrayEquals(new int[]{0, 2}, task.getStrAttrIdx());
+    }
 }
