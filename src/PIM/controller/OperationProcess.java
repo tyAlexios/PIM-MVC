@@ -1,9 +1,7 @@
 package PIM.controller;
 
-import java.io.FileNotFoundException;
-
 public interface OperationProcess
 {
-    int verify(String[] cmd) throws FileNotFoundException;
+    int verify(String[] cmd) throws Exception;
     void process(String[] cmd) throws Exception;
 }

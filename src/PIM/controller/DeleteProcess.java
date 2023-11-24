@@ -2,11 +2,11 @@ package PIM.controller;
 
 import PIM.model.*;
 import PIM.view.*;
+
 public class DeleteProcess implements OperationProcess
 {
     @Override
-    public int verify(String[] cmd)
-    {
+    public int verify(String[] cmd) throws Exception {
 
         if (cmd.length != 3)
             return 6;
@@ -17,7 +17,7 @@ public class DeleteProcess implements OperationProcess
     }
 
     @Override
-    public void process(String[] cmd)
+    public void process(String[] cmd) throws Exception
     {
         String type = cmd[1];
 

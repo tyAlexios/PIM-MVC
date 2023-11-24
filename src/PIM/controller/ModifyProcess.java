@@ -6,7 +6,7 @@ import PIM.view.*;
 public class ModifyProcess implements OperationProcess
 {
     @Override
-    public int verify(String[] cmd)
+    public int verify(String[] cmd) throws Exception
     {
         if (cmd.length != 3)
             return 4;

@@ -1,14 +1,13 @@
 package PIM.controller;
 
 import PIM.model.*;
-import PIM.view.*;
 
 import java.util.List;
 
 public class PrintProcess implements OperationProcess
 {
     @Override
-    public int verify(String[] cmd)
+    public int verify(String[] cmd) throws Exception
     {
         API printAPI = new PrintAPI();
         if (cmd.length != 2 && cmd.length !=3)
