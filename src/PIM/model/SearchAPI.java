@@ -101,22 +101,18 @@ public class SearchAPI implements API
         Set<String> matchingKeys = new HashSet<>();
         DateTimeFormatter formatter;
 
-        if (targetTime.length() > 5)
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
-        else
-            formatter = DateTimeFormatter.ofPattern("HH:mm");
-
         LocalDateTime targetDateTime = null;
         LocalTime targetLocalTime = null;
 
-        try {
-            if (formatter.toString().equals("yyyy-MM-dd-HH:mm")) {
-                targetDateTime = LocalDateTime.parse(targetTime, formatter);
-            } else {
-                targetLocalTime = LocalTime.parse(targetTime, formatter);
-            }
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid time format for targetTime", e);
+        if (targetTime.length() > 5)
+        {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
+            targetDateTime = LocalDateTime.parse(targetTime, formatter);
+        }
+        else
+        {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            targetLocalTime = LocalTime.parse(targetTime, formatter);
         }
 
         for (String key : totalKeySet)
@@ -135,8 +131,7 @@ public class SearchAPI implements API
                     matches = compareDateTime(op, curDateTime, targetDateTime);
                 } else
                 {
-                    curTime = curTime.substring(11);
-                    LocalTime curLocalTime = LocalTime.parse(curTime, formatter);
+                    LocalTime curLocalTime = LocalTime.parse(curTime.substring(11), formatter);
                     matches = compareLocalTime(op, curLocalTime, targetLocalTime);
                 }
 

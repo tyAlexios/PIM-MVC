@@ -73,6 +73,7 @@ public class PIM
 
         stream.close();
     }
+
 //    public static void main(String[] args) {
 //        String text = "start \"part with \"escaped\" quotes and whitespace\" end";
 //        Pattern pattern = Pattern.compile("(?<!\\\\)\\\"(.*?)(?<!\\\\)\\\"");
