@@ -29,6 +29,11 @@ public class SearchAPITest {
 
     @Test
     public void verify() {
+        assertEquals(0, searchAPI.verify(new String[]{PIRTextType}));
+        assertEquals(0, searchAPI.verify(new String[]{PIREventType}));
+        assertEquals(0, searchAPI.verify(new String[]{PIRContactType}));
+        assertEquals(0, searchAPI.verify(new String[]{PIRTaskType}));
+        assertEquals(17, searchAPI.verify(new String[]{UnknownPIRType}));
     }
 
     @Test
