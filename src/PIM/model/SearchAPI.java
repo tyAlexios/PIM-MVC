@@ -61,19 +61,38 @@ public class SearchAPI implements API
                 else
                     keySets.push(checkTime(token.charAt(0), token.substring(1)));
             }
-        }
-        while (!ops.isEmpty())
-        {
-            if (ops.peek().equals("!"))
+
+            if (!ops.isEmpty())
             {
-                ops.pop();
-                keySets.push(applyOp(keySets.pop()));
+
             }
-            else
+            while (!ops.isEmpty())
             {
-                keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
+                if (ops.peek().equals("!"))
+                {
+                    ops.pop();
+                    keySets.push(applyOp(keySets.pop()));
+                }
+                else
+                {
+                    keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
+                }
             }
+
+
         }
+//        while (!ops.isEmpty())
+//        {
+//            if (ops.peek().equals("!"))
+//            {
+//                ops.pop();
+//                keySets.push(applyOp(keySets.pop()));
+//            }
+//            else
+//            {
+//                keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
+//            }
+//        }
         return keySets.pop();
     }
 
@@ -114,7 +133,9 @@ public class SearchAPI implements API
                 if (targetDateTime != null) {
                     LocalDateTime curDateTime = LocalDateTime.parse(curTime, formatter);
                     matches = compareDateTime(op, curDateTime, targetDateTime);
-                } else {
+                } else
+                {
+                    curTime = curTime.substring(11);
                     LocalTime curLocalTime = LocalTime.parse(curTime, formatter);
                     matches = compareLocalTime(op, curLocalTime, targetLocalTime);
                 }

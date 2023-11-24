@@ -2,7 +2,10 @@ package PIM.controller;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import PIM.view.*;
 
@@ -70,5 +73,15 @@ public class PIM
 
         stream.close();
     }
+//    public static void main(String[] args) {
+//        String text = "start \"part with \"escaped\" quotes and whitespace\" end";
+//        Pattern pattern = Pattern.compile("(?<!\\\\)\\\"(.*?)(?<!\\\\)\\\"");
+//        Matcher matcher = pattern.matcher(text);
+//
+//        while (matcher.find()) {
+//            String matched = matcher.group(1); // Group 1 is the content inside the quotes
+//            System.out.println(matched); // Output: part with \"escaped\" quotes and whitespace
+//        }
+//    }
 
 }

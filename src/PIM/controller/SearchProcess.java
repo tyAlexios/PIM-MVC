@@ -24,15 +24,14 @@ public class SearchProcess implements OperationProcess
     @Override
     public void process(String[] cmd)
     {
-        String conditionStr = String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length));
+        String expression = String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length));
+
+        String[] tokens = Arrays.copyOfRange(cmd, 1, cmd.length);
 
         SearchAPI searchAPI = new SearchAPI();
         searchAPI.init(null);
-        String[] tokens = Arrays.copyOfRange(cmd, 1, cmd.length);
-
 
         searchAPI.exe(tokens);
-
 
         Set<String> searchKeySet = searchAPI.getRestKeySet();
         if (searchKeySet.isEmpty())
@@ -43,6 +42,12 @@ public class SearchProcess implements OperationProcess
             for (String key : searchKeySet)
                 PIM.output(String.format("%s\n", key));
         }
+    }
+
+    private String[] parseExpression(String expression)
+    {
+
+        return null;
     }
 
 }
