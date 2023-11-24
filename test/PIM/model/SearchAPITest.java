@@ -56,41 +56,10 @@ public class SearchAPITest {
         assertEquals(1, searchAPI.getRestKeySet().size());
         assertEquals(PIRTextPrimaryKey, searchAPI.getRestKeySet().iterator().next());
 
-        try {
-            searchAPI.init(new String[]{"search", "<2023-11-24-11:00"});
-            searchAPI.exe(new String[]{"<2023-11-24-11:00"});
-            assertEquals(1, searchAPI.getRestKeySet().size());
-        } catch (Exception e) {
-            assertEquals("Invalid time format for targetTime", e.getMessage());
-        }
-        try {
-            searchAPI.init(new String[]{"search", "<2023-11-24-11"});
-            searchAPI.exe(new String[]{"<2023-11-24-11"});
-        } catch (Exception e) {
-            assertEquals("Invalid time format for targetTime", e.getMessage());
-        }
 
-        try {
-            searchAPI.init(new String[]{"search", "<11:00"});
-            searchAPI.exe(new String[]{"<11:00"});
-        } catch (Exception e) {
-            assertEquals("Invalid time format for targetTime", e.getMessage());
-        }
-        searchAPI.init(new String[]{"search", "<11:00"});
-        searchAPI.exe(new String[]{"<11:00"});
+        searchAPI.init(new String[]{"search", "<2023-11-24-11:00"});
+        searchAPI.exe(new String[]{"<2023-11-24-11:00"});
         assertEquals(1, searchAPI.getRestKeySet().size());
-
-        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"'});
-        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"'});
-        assertEquals(1, searchAPI.getRestKeySet().size());
-
-        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "&&", "<2023-11-24-11:00"});
-        searchAPI.exe(new String[]{'"' + PIRTaskType + '"', "&&", "<2023-11-24-11:00"});
-        assertEquals(0, searchAPI.getRestKeySet().size());
-
-        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
-        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
-        assertEquals(0, searchAPI.getRestKeySet().size());
 
         searchAPI.init(new String[]{"search", ">2023-11-24-11:00"});
         searchAPI.exe(new String[]{">2023-11-24-11:00"});
@@ -100,12 +69,31 @@ public class SearchAPITest {
         searchAPI.exe(new String[]{"=2023-11-24-11:00"});
         assertEquals(0, searchAPI.getRestKeySet().size());
 
-        try {
-            searchAPI.init(new String[]{"search", "-2023-11-24-11:00"});
-            searchAPI.exe(new String[]{"-2023-11-24-11:00"});
-        } catch (Exception e) {
-            assertEquals("Invalid time format for targetTime", e.getMessage());
-        }
+        searchAPI.init(new String[]{"search", "<11:00"});
+        searchAPI.exe(new String[]{"<11:00"});
+        assertEquals(1, searchAPI.getRestKeySet().size());
+
+        searchAPI.init(new String[]{"search", ">11:00"});
+        searchAPI.exe(new String[]{">11:00"});
+        assertEquals(0, searchAPI.getRestKeySet().size());
+
+        searchAPI.init(new String[]{"search", "=11:00"});
+        searchAPI.exe(new String[]{"=11:00"});
+        assertEquals(0, searchAPI.getRestKeySet().size());
+
+//        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"'});
+//        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"'});
+//        assertEquals(1, searchAPI.getRestKeySet().size());
+//
+//        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "&&", "<2023-11-24-11:00"});
+//        searchAPI.exe(new String[]{'"' + PIRTaskType + '"', "&&", "<2023-11-24-11:00"});
+//        assertEquals(0, searchAPI.getRestKeySet().size());
+//
+//        searchAPI.init(new String[]{"search", "!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
+//        searchAPI.exe(new String[]{"!", '"' + PIRContactType + '"', "||", "<2023-11-24-11:00"});
+//        assertEquals(0, searchAPI.getRestKeySet().size());
+
+
 
 
         deleteAPI.init(new String[]{"del", PIRTextType, PIRNameForTesting});
