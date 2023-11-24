@@ -5,9 +5,8 @@ import java.util.*;
 public class SearchAPI implements API
 {
     private Set<String> totalKeySet;
-    private Stack<Set<String>> keySets;
     private Set<String> restKeySet;
-    Stack<String> ops = new Stack<>();
+
 
     @Override
     public int verify(String[] cmd)
@@ -20,10 +19,10 @@ public class SearchAPI implements API
     {
         List<String[]> PIRInfos = PIRRepo.RepoImage();
         totalKeySet = new HashSet<>();
+        restKeySet = new HashSet<>();
         for (String[] PIRInfo : PIRInfos)
             totalKeySet.add(PIRInfo[0]);
-        keySets = new Stack<>();
-        restKeySet = new HashSet<>();
+
         return null;
     }
 
@@ -39,41 +38,51 @@ public class SearchAPI implements API
     }
 
 
-    private Set<String>  filter( String[] tokens, int start, int end)
+    private Set<String> filter( String[] tokens, int start, int end)
     {
+        Stack<Set<String>> keySets = new Stack<>();
+        Stack<String> ops = new Stack<>();
+        Set<String> ret = new HashSet<>();
         for (int i = start; i <= end; i++)
         {
             String token = tokens[i];
+
+            Set<String> curRes = null;
+
             if (token.equals("("))
             {
                 int j = findClosing(tokens, i);
-                keySets.push(filter( tokens, i + 1, j - 1));
+                curRes = filter( tokens, i + 1, j - 1);
                 i = j;
-            } else if (isOperator(token)) {
+            } else if (isOperator(token))
+            {
                 ops.push(token);
+                continue;
             } else
             {
                 if (token.charAt(0) == '\"' && token.charAt(token.length()-1) == '\"')
-                    keySets.push(checkStr(token.substring(1, token.length()-1)));
+                    curRes = checkStr(token.substring(1, token.length()-1));
                 else
-                    keySets.push(checkTime(token.charAt(0), token.substring(1)));
+                    curRes = checkTime(token.charAt(0), token.substring(1));
             }
 
-            if (ops.isEmpty() || keySets.isEmpty())
-                continue;
-
-            if (ops.peek().equals("!") && !keySets.isEmpty())
+            while (!ops.isEmpty())
             {
-                ops.pop();
-                keySets.push(applyOp(keySets.pop()));
+                String op = ops.pop();
+                if ( op.equals("!") )
+                    curRes = applyOp(curRes);
+                else if (op.equals("&&"))
+                    curRes = applyANDOp(keySets.pop(), curRes);
+                else if (op.equals("||"))
+                    curRes = applyOROp(keySets.pop(), curRes);
             }
-            else if (keySets.size() >= 2)
-            {
-                keySets.push(applyOp(ops.pop(), keySets.pop(), keySets.pop()));
-            }
-
+            keySets.push(curRes);
         }
-        return keySets.pop();
+
+        if (!keySets.isEmpty())
+            ret = keySets.pop();
+
+        return ret;
     }
 
     private Set<String> checkTime(char op, String targetTime)
@@ -150,19 +159,16 @@ public class SearchAPI implements API
         return closePos;
     }
 
-    private Set<String> applyOp(String op, Set<String> set1, Set<String> set2) {
-        switch (op)
-        {
-            case "&&" -> {
-                set1.retainAll(set2);
-                return set1;
-            }
-            case "||" -> {
-                set1.addAll(set2);
-                return set1;
-            }
-            default -> throw new IllegalArgumentException("Unknown operator: " + op);
-        }
+    private Set<String> applyANDOp(Set<String> set1, Set<String> set2)
+    {
+        set1.retainAll(set2);
+        return set1;
+    }
+
+    private Set<String> applyOROp(Set<String> set1, Set<String> set2)
+    {
+        set1.addAll(set2);
+        return set1;
     }
 
     private Set<String> applyOp( Set<String> set)

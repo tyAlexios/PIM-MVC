@@ -16,7 +16,6 @@ public class SearchProcess implements OperationProcess
         // all split with only one white space
         // no priority between && and ! and ||
 
-        
 
         return 0;
     }
@@ -32,7 +31,7 @@ public class SearchProcess implements OperationProcess
         searchAPI.exe(tokens);
 
         Set<String> searchKeySet = searchAPI.getRestKeySet();
-        if (searchKeySet.isEmpty())
+        if (searchKeySet == null || searchKeySet.isEmpty())
             PIM.output(SearchView.getView(ViewPage.SearchNone));
         else
         {
