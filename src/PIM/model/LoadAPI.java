@@ -34,7 +34,7 @@ public class LoadAPI implements API
         if (fileContent.equals(""))
             return 24;
 
-        
+
 
         return 0;
     }

@@ -15,7 +15,7 @@ public class PIM {
         stream.out(outStr);
     }
 
-    private void systemStart() {
+    private void systemStart() throws Exception {
         output(SystemView.getView(SystemView.ViewPage.WelcomePage));
         String cmdLine = null;
         while (true) {
@@ -31,7 +31,7 @@ public class PIM {
         }
     }
 
-    public int runCmd(String cmdLine) {
+    public int runCmd(String cmdLine) throws Exception {
         String[] cmd = cmdLine.split(" ");
         String op = cmd[0];
         if (!OperationLib.containOperation(op)) {
@@ -49,7 +49,7 @@ public class PIM {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         stream = new ScannerStream();
 
         PIM pim = new PIM();
