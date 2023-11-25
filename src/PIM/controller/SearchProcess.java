@@ -30,10 +30,17 @@ public class SearchProcess implements OperationProcess
             String[] para = new String[1];
             para[0] = type;
             SearchAPI searchAPI = new SearchAPI();
-            return searchAPI.verify(para);
+            int ret = searchAPI.verify(para);
+
+            if (ret != 0)
+                return ret;
+
         }
         else
+        {
             tokens = parseExpression(String.join(" ", Arrays.copyOfRange(cmd, 1, cmd.length)));
+        }
+
 
 
         for (int i=0; i<tokens.length; ++i)
