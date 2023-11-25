@@ -5,23 +5,27 @@ public class SystemView
     public enum ViewPage
     {
         WelcomePage("""
-            ------------------------------------------------------------------------------
-                      Welcome to Personal Information Manager (PIM) System
-            ------------------------------------------------------------------------------
-                      Enter "help" for help menu
-                  
-                      <Help Menu>
-                      Four types of PIM entities are supported: txt, task, contact, event
-                      Five operations are supported: create, modify, del, print, search
-                      Two PIM operations are supported: load, save
-            ------------------------------------------------------------------------------
-                      Enter command after ">>> "
-                      Command format: {operation} {PIR type} {PIR name}
-                      Example: create txt mytxt
-            ------------------------------------------------------------------------------
-                      Enter "quit" to quit the system
-            ------------------------------------------------------------------------------
-            """),
+                -----------------------------------------------------------------------------------
+                               Welcome to Personal Information Manager (PIM) System
+                -----------------------------------------------------------------------------------
+                             _________          ________         ______          ______
+                            / /______\\ \\        \\__  __/         | _ \\ \\        / / _ |
+                           | |       | |           | |           | |  \\ \\      / /  | |
+                           | |_______/ /           | |           | |   \\ \\    / /   | |
+                           | |________/            | |           | |    \\ \\  / /    | |
+                           | |                     | |           | |     \\ \\/ /     | |
+                           | |                   __| |__         | |      \\  /      | |
+                           \\_/                  /_______\\        \\_/       \\/       \\_/
+                           
+                -----------------------------------------------------------------------------------
+                          If you are a freshman, please check our user manual document to
+                                           learn about how to use our PIM
+                -----------------------------------------------------------------------------------
+                          Type "man {command}" to check details of use of a specific command
+                -----------------------------------------------------------------------------------
+                                           Enter "quit" to quit the system
+                ----------------------------------------------------------------------------------
+                """),
         ByePage("~~~Bye~~~\n"),
         Navigate(">>> "),
 
