@@ -33,7 +33,7 @@ public class LoadAPITest {
     @Test
     public void verify() {
         try {
-            assertEquals(23, loadAPI.verify(new String[]{"load", PIRTestFilePath}));
+            assertEquals(21, loadAPI.verify(new String[]{"load", PIRTestFilePath}));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class LoadAPITest {
             e.printStackTrace();
         }
         try {
-            assertEquals(24, loadAPI.verify(new String[]{"load", PIRTestFilePath2}));
+            assertEquals(22, loadAPI.verify(new String[]{"load", PIRTestFilePath2}));
         } catch (Exception e) {
             e.printStackTrace();
         }

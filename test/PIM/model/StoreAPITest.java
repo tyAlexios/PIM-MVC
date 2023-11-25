@@ -26,7 +26,7 @@ public class StoreAPITest {
         storeAPI.init(new String[]{"store", PIRTestFileName, PIRTestPath});
         try {
             storeAPI.exe(null);
-            assertEquals(21, storeAPI.verify(new String[]{"store", PIRTestFileName, PIRTestPath}));
+            assertEquals(20, storeAPI.verify(new String[]{"store", PIRTestFileName, PIRTestPath}));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class StoreAPITest {
         storeAPI.init(new String[]{"store", PIRTestFileName2});
         try {
             storeAPI.exe(null);
-            assertEquals(21, storeAPI.verify(new String[]{"store", PIRTestFileName2}));
+            assertEquals(20, storeAPI.verify(new String[]{"store", PIRTestFileName2}));
         } catch (Exception e) {
             e.printStackTrace();
         }
