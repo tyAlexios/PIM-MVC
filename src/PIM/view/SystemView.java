@@ -1,6 +1,6 @@
 package PIM.view;
 
-public class SystemView
+public abstract class SystemView
 {
     public enum ViewPage
     {

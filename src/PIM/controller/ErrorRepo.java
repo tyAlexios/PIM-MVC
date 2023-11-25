@@ -2,7 +2,7 @@ package PIM.controller;
 
 import java.util.HashMap;
 
-public class ErrorRepo {
+public abstract class ErrorRepo {
     private static final HashMap<Integer, String> ErrorMap = new HashMap<>();
 
     static {

@@ -3,7 +3,7 @@ package PIM.model;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-class PIRTypeLib
+abstract class PIRTypeLib
 {
     static final HashMap<String, Supplier<PIR>> typeMap = new HashMap<>();
 

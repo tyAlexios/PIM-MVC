@@ -1,6 +1,6 @@
 package PIM.controller;
 
-public class inputVerify
+abstract class inputVerify
 {
     public static boolean optionVerify(String optionStr, int maxVal)
     {

@@ -1,6 +1,6 @@
 package PIM.view;
 
-public class LoadView
+public abstract class LoadView
 {
     public enum ViewPage
     {

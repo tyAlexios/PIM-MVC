@@ -14,8 +14,8 @@ public class LoadAPI implements API
     private String fileContent;
 
     private List<String> overwriteKeys = null;
-    public List<String[]> conflictPIRs = null;
-    public List<String[]> originalPIRs = null;
+    private List<String[]> conflictPIRs = null;
+    private List<String[]> originalPIRs = null;
 
     @Override
     public int verify(String[] cmd) throws FileNotFoundException

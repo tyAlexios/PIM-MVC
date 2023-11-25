@@ -2,7 +2,7 @@ package PIM.view;
 
 import java.util.HashMap;
 
-public class UpdateView
+public abstract class UpdateView
 {
     public enum ViewPage
     {

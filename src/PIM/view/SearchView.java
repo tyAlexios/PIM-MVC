@@ -1,6 +1,6 @@
 package PIM.view;
 
-public class SearchView
+public abstract class SearchView
 {
     public enum ViewPage
     {

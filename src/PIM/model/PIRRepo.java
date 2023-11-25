@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
-class PIRRepo
+abstract class PIRRepo
 {
     private static final TreeMap<String, PIR> Repository = new TreeMap<>();
 

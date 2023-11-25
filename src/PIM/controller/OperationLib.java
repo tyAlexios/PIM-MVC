@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 
 
-public class OperationLib {
+abstract class OperationLib {
     public static final HashMap<String, OperationProcess> operationMap = new HashMap<>();
 
     static {

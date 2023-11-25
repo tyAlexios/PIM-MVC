@@ -1,6 +1,6 @@
 package PIM.view;
 
-public class DeleteView
+public abstract class DeleteView
 {
     public enum ViewPage
     {

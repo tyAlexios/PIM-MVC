@@ -73,12 +73,12 @@ public class LoadAPITest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertEquals(1, loadAPI.conflictPIRs.size());
-        assertEquals(1, loadAPI.originalPIRs.size());
-        assertEquals(PIREventPrimaryKey, loadAPI.conflictPIRs.get(0)[0]);
-        assertEquals(PIRTestStartingTime, loadAPI.conflictPIRs.get(0)[1]);
-        assertEquals(PIRTestAlarmTime, loadAPI.conflictPIRs.get(0)[2]);
-        assertEquals(PIRTestDescription, loadAPI.conflictPIRs.get(0)[3]);
+        assertEquals(1, loadAPI.getConflictPIRs().size());
+        assertEquals(1, loadAPI.getOriginalPIRs().size());
+        assertEquals(PIREventPrimaryKey, loadAPI.getConflictPIRs().get(0)[0]);
+        assertEquals(PIRTestStartingTime, loadAPI.getConflictPIRs().get(0)[1]);
+        assertEquals(PIRTestAlarmTime, loadAPI.getConflictPIRs().get(0)[2]);
+        assertEquals(PIRTestDescription, loadAPI.getConflictPIRs().get(0)[3]);
     }
 
     @Test

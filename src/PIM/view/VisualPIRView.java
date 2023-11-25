@@ -1,9 +1,8 @@
 package PIM.view;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.HashMap;
 
-public class VisualPIRView
+public abstract class VisualPIRView
 {
     public enum ViewPage
     {
