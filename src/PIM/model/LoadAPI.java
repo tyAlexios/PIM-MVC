@@ -24,12 +24,12 @@ public class LoadAPI implements API
         File loadFile = new File(loadPath);
 
         if (!loadFile.exists())
-            return 23;
+            return 21;
 
         String content = getFileContent(loadFile);
 
         if (content.isEmpty())
-            return 24;
+            return 22;
 
         return 0;
     }

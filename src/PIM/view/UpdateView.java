@@ -36,7 +36,7 @@ public class UpdateView
             Fields marked with an '*' are essential.
             \t[0] Done               - Finish and save
             \t[1] Cancel             - Go back and do NOT save
-            \t[2] *Deadline          - Add or edit the deadline time in format "YYYY-MM-DD-HH:MM"
+            \t[2] *Deadline          - Add or edit the deadline time in format "yyyy-MM-dd-HH:mm"
             \t[3] Description        - Add or edit the description
             
             """
@@ -48,8 +48,8 @@ public class UpdateView
             Fields marked with an '*' are essential.
             \t[0] Done               - Finish and save
             \t[1] Cancel             - Go back and do NOT save
-            \t[2] *Starting Time     - Add or edit the starting time in format "YYYY-MM-DD-HH:MM"
-            \t[3] *Alarm Time        - Add or edit the alarm time in format "YYYY-MM-DD-HH:MM"
+            \t[2] *Starting Time     - Add or edit the starting time in format "yyyy-MM-dd-HH:mm"
+            \t[3] *Alarm Time        - Add or edit the alarm time in format "yyyy-MM-dd-HH:mm"
             \t[4] Description        - Add or edit the description
             
             """

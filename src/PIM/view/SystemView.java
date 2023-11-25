@@ -21,10 +21,10 @@ public class SystemView
                           If you are a freshman, please check our user manual document to
                                            learn about how to use our PIM
                 -----------------------------------------------------------------------------------
-                          Type "man {command}" to check details of use of a specific command
+                             Type "man {command}" to check use of a specific command
                 -----------------------------------------------------------------------------------
                                            Enter "quit" to quit the system
-                ----------------------------------------------------------------------------------
+                -----------------------------------------------------------------------------------
                 """),
         ByePage("~~~Bye~~~\n"),
         Navigate(">>> "),

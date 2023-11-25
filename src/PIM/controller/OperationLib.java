@@ -15,6 +15,7 @@ public class OperationLib {
         operationMap.put("print", new PrintProcess());
         operationMap.put("load", new LoadProcess());
         operationMap.put("store", new StoreProcess());
+        operationMap.put("man", new ManProcess());
     }
 
     public static boolean containOperation(String command)

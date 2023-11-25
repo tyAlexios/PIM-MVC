@@ -29,7 +29,7 @@ public class StoreAPI implements API
 
         Path savePath = Paths.get(saveDir, fileName);
         if (Files.exists(savePath))
-            return 21;
+            return 20;
 
         return 0;
     }
