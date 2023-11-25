@@ -50,4 +50,10 @@ public class PrintAPI implements API
         return printCache;
     }
 
+    public List<String[]> getRepoImg()
+    {
+        return PIRRepo.RepoImage();
+    }
+
+
 }

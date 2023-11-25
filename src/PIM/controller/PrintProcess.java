@@ -24,7 +24,7 @@ public class PrintProcess implements OperationProcess
 
         if (cmd[1].equals("-a"))
         {
-            List<String[]> RepoImg = PIRRepo.RepoImage();
+            List<String[]> RepoImg = printAPI.getRepoImg();
             for (String[] PIRInfo : RepoImg)
             {
                 printAPI.exe(PIRInfo);

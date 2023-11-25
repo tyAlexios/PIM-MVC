@@ -3,7 +3,7 @@ package PIM.model;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-public class PIRTypeLib
+class PIRTypeLib
 {
     static final HashMap<String, Supplier<PIR>> typeMap = new HashMap<>();
 
@@ -15,12 +15,12 @@ public class PIRTypeLib
         typeMap.put("contact", ContactPIR::new);
     }
 
-    public static boolean containPIRType(String type)
+    static boolean containPIRType(String type)
     {
         return typeMap.containsKey(type);
     }
 
-    public static PIR createPIR(String type)
+    static PIR createPIR(String type)
     {
         Supplier<PIR> pirSupplier = typeMap.get(type);
         if (pirSupplier != null) {

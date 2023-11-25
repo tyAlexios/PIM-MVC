@@ -1,6 +1,6 @@
 package PIM.model;
 
-public class TxtPIR extends PIR
+class TxtPIR extends PIR
 {
     // PrimaryKey, *txt
 

@@ -1,6 +1,6 @@
 package PIM.model;
 
-public class TaskPIR extends PIR
+class TaskPIR extends PIR
 {
     // PrimaryKey, *Deadline, Description
 

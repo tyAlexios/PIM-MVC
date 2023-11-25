@@ -1,6 +1,6 @@
 package PIM.controller;
 
-import PIM.model.PIRTypeLib;
+
 import PIM.view.HelpView;
 
 public class ManProcess implements OperationProcess

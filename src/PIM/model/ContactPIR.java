@@ -1,6 +1,6 @@
 package PIM.model;
 
-public class ContactPIR extends PIR
+class ContactPIR extends PIR
 {
     // PrimaryKey, *Name, *Address, *MobileNumber
 

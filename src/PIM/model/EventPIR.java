@@ -1,6 +1,6 @@
 package PIM.model;
 
-public class EventPIR extends PIR
+class EventPIR extends PIR
 {
     // PrimaryKey, *StartingTime, *AlarmTime, Description
 

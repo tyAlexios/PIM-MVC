@@ -1,7 +1,11 @@
 package PIM.model;
 
+import PIM.controller.PIM;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.Stack;
 
 import static org.junit.Assert.*;
 
@@ -111,29 +115,49 @@ public class PrintAPITest {
 
     @Test
     public void exe() {
+
+        Stack<String> cache = new Stack<>();
+        String curPIRView;
+
         createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
         createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
         printAPI.init(new String[]{"print", PIRTextType, PIRNameForTesting});
         printAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
-        assertEquals(printAPI.flushPrintCache(), String.format(PrintTextFormat, PIRTextPrimaryKey, PIRTestDescription));
-
-        createAPI.init(new String[]{"create", PIREventType, PIRNameForTesting});
-        createAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
-        printAPI.init(new String[]{"print", PIREventType, PIRNameForTesting});
-        printAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
-        assertEquals(printAPI.flushPrintCache(), String.format(PrintEventFormat, PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription));
-
-        createAPI.init(new String[]{"create", PIRContactType, PIRNameForTesting});
-        createAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
-        printAPI.init(new String[]{"print", PIRContactType, PIRNameForTesting});
-        printAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
-        assertEquals(printAPI.flushPrintCache(), String.format(PrintContactFormat, PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber));
+        curPIRView = String.format(PrintTextFormat, PIRTextPrimaryKey, PIRTestDescription);
+        cache.push(curPIRView);
+        assertEquals(printAPI.flushPrintCache(), curPIRView);
 
         createAPI.init(new String[]{"create", PIRTaskType, PIRNameForTesting});
         createAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
         printAPI.init(new String[]{"print", PIRTaskType, PIRNameForTesting});
         printAPI.exe(new String[]{PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription});
-        assertEquals(printAPI.flushPrintCache(), String.format(PrintTaskFormat, PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription));
+        curPIRView = String.format(PrintTaskFormat, PIRTaskPrimaryKey, PIRTestDeadline, PIRTestDescription);
+        cache.push(curPIRView);
+        assertEquals(printAPI.flushPrintCache(), curPIRView);
+
+        createAPI.init(new String[]{"create", PIREventType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
+        printAPI.init(new String[]{"print", PIREventType, PIRNameForTesting});
+        printAPI.exe(new String[]{PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription});
+        curPIRView = String.format(PrintEventFormat, PIREventPrimaryKey, PIRTestStartingTime, PIRTestAlarmTime, PIRTestDescription);
+        cache.push(curPIRView);
+        assertEquals(printAPI.flushPrintCache(), curPIRView);
+
+        createAPI.init(new String[]{"create", PIRContactType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
+        printAPI.init(new String[]{"print", PIRContactType, PIRNameForTesting});
+        printAPI.exe(new String[]{PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber});
+        curPIRView = String.format(PrintContactFormat, PIRContactPrimaryKey, PIRTestName, PIRTestAddress, PIRTestMobileNumber);
+        cache.push(curPIRView);
+        assertEquals(printAPI.flushPrintCache(), curPIRView);
+
+        List<String[]> RepoImg = printAPI.getRepoImg();
+        for (String[] PIRInfo : RepoImg)
+        {
+            printAPI.exe(PIRInfo);
+            assertEquals(printAPI.flushPrintCache(), cache.pop());
+        }
+
 
         deleteAPI.init(new String[]{"del", PIRTextType, PIRNameForTesting});
         deleteAPI.exe(new String[]{PIRTextPrimaryKey});
