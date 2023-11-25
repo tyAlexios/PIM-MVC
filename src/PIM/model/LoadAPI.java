@@ -29,13 +29,13 @@ public class LoadAPI implements API
         StringBuilder stringBuilder = new StringBuilder();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            stringBuilder.append(line);
+            stringBuilder.append(line).append('\n');
         }
         fileContent = stringBuilder.toString();
 
         scanner.close();
 
-        if (fileContent.equals(""))
+        if (fileContent.isEmpty())
             return 24;
 
         return 0;

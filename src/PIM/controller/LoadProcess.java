@@ -58,11 +58,11 @@ public class LoadProcess implements OperationProcess
                 if (option == 0)
                 {
                     PIM.output(LoadView.getView(LoadView.ViewPage.NotOverwrite));
-                    loadAPI.setOverwriteKeys(key);
                 }
                 else
                 {
                     PIM.output(LoadView.getView(LoadView.ViewPage.YesOverwrite));
+                    loadAPI.setOverwriteKeys(key);
                 }
             }
         }

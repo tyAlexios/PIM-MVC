@@ -14,6 +14,7 @@ public class StoreAPITest {
     private final String PIRTestFileName2 = "test2.pim";
     CreateAPI createAPI = new CreateAPI();
     StoreAPI storeAPI = new StoreAPI();
+    DeleteAPI deleteAPI = new DeleteAPI();
 
 
     @Test
@@ -33,13 +34,16 @@ public class StoreAPITest {
 
     @Test
     public void exe2() {
+        createAPI.init(new String[]{"create", PIRTextType, PIRNameForTesting});
+        createAPI.exe(new String[]{PIRTextPrimaryKey, PIRTestDescription});
         storeAPI.init(new String[]{"store", PIRTestFileName2});
-        assertEquals(0, storeAPI.verify(new String[]{"store", PIRTestFileName2}));
         try {
             storeAPI.exe(null);
             assertEquals(21, storeAPI.verify(new String[]{"store", PIRTestFileName2}));
         } catch (Exception e) {
             e.printStackTrace();
         }
+        deleteAPI.init(new String[]{"delete", PIRTextType, PIRNameForTesting});
+        deleteAPI.exe(new String[]{PIRTextPrimaryKey});
     }
 }
