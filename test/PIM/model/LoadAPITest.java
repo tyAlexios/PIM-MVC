@@ -48,6 +48,7 @@ public class LoadAPITest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Test
@@ -83,7 +84,6 @@ public class LoadAPITest {
     @Test
     public void setOverwriteKeys() {
         try {
-            loadAPI.verify(new String[]{"load", PIRTestFilePath3});
             loadAPI.init(new String[]{"load", PIRTestFilePath3});
             loadAPI.exe(null);
         } catch (Exception e) {

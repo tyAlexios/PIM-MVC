@@ -21,32 +21,29 @@ public class LoadAPI implements API
     public int verify(String[] cmd) throws FileNotFoundException
     {
         String loadPath = cmd[1];
-        if (!Files.exists(Paths.get(loadPath)))
+        File loadFile = new File(loadPath);
+
+        if (!loadFile.exists())
             return 23;
 
-        Scanner scanner = new Scanner(new File(loadPath));
+        String content = getFileContent(loadFile);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            stringBuilder.append(line).append('\n');
-        }
-        fileContent = stringBuilder.toString();
-
-        scanner.close();
-
-        if (fileContent.isEmpty())
+        if (content.isEmpty())
             return 24;
 
         return 0;
     }
 
     @Override
-    public String[] init(String[] para)
-    {
+    public String[] init(String[] para) throws FileNotFoundException {
         overwriteKeys = new ArrayList<>();
         conflictPIRs = new LinkedList<>();
         originalPIRs = new LinkedList<>();
+
+        String loadPath = para[1];
+        File loadFile = new File(loadPath);
+        fileContent = getFileContent(loadFile);
+
         String[] PIRContents = fileContent.split(StoreAPI.SEPARATE);
 
         for (String PIRContent : PIRContents)
@@ -84,6 +81,20 @@ public class LoadAPI implements API
                 PIRRepo.getPIR(key).setInfo(PIRInfo);
             }
         }
+    }
+
+    public String getFileContent(File loadFile) throws FileNotFoundException
+    {
+        Scanner scanner = new Scanner(loadFile);
+        StringBuilder stringBuilder = new StringBuilder();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            stringBuilder.append(line).append('\n');
+        }
+        fileContent = stringBuilder.toString();
+        scanner.close();
+
+        return fileContent;
     }
 
     public void setOverwriteKeys(String key)

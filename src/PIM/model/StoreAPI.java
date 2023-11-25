@@ -62,7 +62,7 @@ public class StoreAPI implements API
         }
 
         File file = new File(savePath.toUri());
-        file.createNewFile();
+        //       file.createNewFile();
 //        file.setReadOnly();
         FileWriter writer = new FileWriter(file, false);
         writer.write(content.toString());
