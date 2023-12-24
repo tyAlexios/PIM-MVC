@@ -1,2 +1,2 @@
-# New-PIM
+# PIM
  strict MVC
