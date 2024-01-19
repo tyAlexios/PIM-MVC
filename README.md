@@ -1,5 +1,6 @@
 # Personal Information Manager
- strict MVC
+- strict MVC (Model-View-Controller)
+- Software Requirements Specification, Design Document, Developer Manual and User Manual is in the document folder
 
 Demo Video:
 
